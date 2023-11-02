@@ -3,11 +3,11 @@ import { dateToUnix } from "nostr-react";
 import {
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
   generatePrivateKey,
 } from "nostr-tools";
 
-export async function createCommunity({ name, publish }) {
+export async function createEvent({ name, publish }) {
   const privateKey = generatePrivateKey();
   const publicKey = getPublicKey(privateKey);
 
@@ -24,12 +24,13 @@ export async function createCommunity({ name, publish }) {
   };
 
   event.id = getEventHash(event);
-  event.sig = signEvent(event, privateKey);
+  event.sig = getSignature(event, privateKey);
 
   publish(event);
 
   return {
-    communityId: publicKey,
+    name,
+    publicKey,
     privateKey,
   };
 }
