@@ -1,6 +1,7 @@
 import React from "react";
 import { NostrProvider } from "nostr-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Event from "./Event";
 
 import Layout from "./Layout";
 import CreateEvent from "./CreateEvent";
@@ -14,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<CreateEvent />} />
-            {/* <Route path=":eventId" element={<Event />} /> */}
+            <Route path=":eventId" element={<Event />} />
             <Route path="*" element={<div>404</div>} />
           </Route>
         </Routes>
