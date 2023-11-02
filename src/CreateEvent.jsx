@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useNostr } from "nostr-react";
-import { createEvent } from "./helpers/actions";
+import { createEvent, updateUserProfile } from "./helpers/actions";
+import { useLocalStorage } from "./helpers/hooks";
 
 export default function CreateEvent() {
   // function to create an event
   const { publish } = useNostr();
+  const [user, setUser] = useLocalStorage("user", {});
 
   // we store the events the user is subscribed to in local storage
-  const { storedEvents, setStoredEvents } = useOutletContext();
+  const { setEvents } = useOutletContext();
 
-  const [newEvent, setNewEvent] = useState({
+  const [event, setEvent] = useState({
     name: "",
     description: "",
     start: "",
@@ -21,20 +23,25 @@ export default function CreateEvent() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const createdEvent = await createEvent({
-      newEvent,
+    await updateUserProfile({
+      user,
       publish,
     });
 
-    setStoredEvents((prev) => [...prev, createdEvent]);
+    const createdEvent = await createEvent({
+      data: event,
+      publish,
+      publicKey: user.publicKey,
+      privateKey: user.privateKey,
+    });
+
+    setEvents((prev) => [...prev, createdEvent]);
   };
 
   const handleDateChange = (e, type) => {
     if (!e.target["validity"].valid) return;
 
-    console.log(e.target.value);
-
-    setNewEvent((prev) => ({
+    setEvent((prev) => ({
       ...prev,
       [type]: e.target.value,
     }));
@@ -45,16 +52,16 @@ export default function CreateEvent() {
       <label>Event Name:</label>
       <input
         onChange={(e) =>
-          setNewEvent((prev) => ({ ...prev, name: e.target.value }))
+          setEvent((prev) => ({ ...prev, name: e.target.value }))
         }
-        value={newEvent.name}
+        value={event.name}
       />
       <label>Event Description:</label>
       <input
         onChange={(e) =>
-          setNewEvent((prev) => ({ ...prev, description: e.target.value }))
+          setEvent((prev) => ({ ...prev, description: e.target.value }))
         }
-        value={newEvent.description}
+        value={event.description}
       />
 
       <label>Event Start Date:</label>
@@ -72,9 +79,9 @@ export default function CreateEvent() {
       <label>Event Location:</label>
       <input
         onChange={(e) =>
-          setNewEvent((prev) => ({ ...prev, location: e.target.value }))
+          setEvent((prev) => ({ ...prev, location: e.target.value }))
         }
-        value={newEvent.location}
+        value={event.location}
       />
       <div>
         <button className="text-left bg-emerald-800 text-white p-1 rounded">

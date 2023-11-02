@@ -4,47 +4,51 @@ import { SimplePool } from "nostr-tools";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  getEventHash,
-  getPublicKey,
-  getSignature,
-  generatePrivateKey,
-} from "nostr-tools";
+import { getEventHash, getSignature } from "nostr-tools";
 
-export async function createEvent({ newEvent, publish }) {
-  const privateKey = generatePrivateKey();
-  const publicKey = getPublicKey(privateKey);
-
+export async function updateUserProfile({ user, publish }) {
   const event = {
-    content: newEvent.description,
-    kind: 1,
+    content: JSON.stringify({
+      name: user.name,
+    }),
+    kind: 0,
+    tags: [],
+    created_at: dateToUnix(),
+    pubkey: user.publicKey,
+  };
+
+  event.id = getEventHash(event);
+  event.sig = getSignature(event, user.privateKey);
+
+  publish(event);
+
+  return event;
+}
+
+export async function createEvent({ data, publish, publicKey, privateKey }) {
+  // we use channel format for now
+  const event = {
+    content: JSON.stringify({
+      name: data.name,
+      about: data.description,
+    }),
+    kind: 40,
     tags: [
       ["d", uuidv4()],
-      ["name", newEvent.name],
+      ["name", data.name],
       // Timestamps
-      ["start", `${dayjs(newEvent.start).unix()}`],
-      ["end", `${dayjs(newEvent.end).unix()}`],
+      ["start", `${dayjs(data.start).unix()}`],
+      ["end", `${dayjs(data.end).unix()}`],
 
       ["start_tzid", "Europe/Berlin"],
       ["end_tzid", "Europe/Berlin"],
 
       // Location
-      ["location", newEvent.location],
+      ["location", data.location],
       // ["g", "<geohash>"],
 
-      // Participants
-      // [
-      //   "p",
-      //   "<32-bytes hex of a pubkey>",
-      //   "<optional recommended relay URL>",
-      //   "<role>",
-      // ],
-      // [
-      //   "p",
-      //   "<32-bytes hex of a pubkey>",
-      //   "<optional recommended relay URL>",
-      //   "<role>",
-      // ],
+      // Add Admin as participant
+      ["p", publicKey, "", "admin"],
 
       // Hashtags
       // ["t", "<tag>"],
@@ -63,12 +67,7 @@ export async function createEvent({ newEvent, publish }) {
 
   publish(event);
 
-  return {
-    ...newEvent,
-    ...event,
-    publicKey,
-    privateKey,
-  };
+  return event;
 }
 
 export async function getEvent(relays, id, setEvent) {
@@ -80,7 +79,15 @@ export async function getEvent(relays, id, setEvent) {
       ids: [id],
     }
   );
-  const tempEvent = { description: event.content };
+
+  if (!event) {
+    return;
+  }
+
+  console.log(event);
+  const parts = JSON.parse(event.content);
+  console.log(parts);
+  const tempEvent = { name: parts.name, description: parts.about };
 
   event.tags.forEach((tag) => {
     if (tag[0] === "name") {
@@ -103,45 +110,50 @@ export async function getEvent(relays, id, setEvent) {
   setEvent(tempEvent);
 }
 
-export async function createChannel({
-  name,
+export async function rsvpToEvent({
+  rsvp,
   publish,
-  personPublicKey,
-  personPrivateKey,
-  communityPublicKey,
+  publicKey,
+  privateKey,
+  createdEventId,
 }) {
+  const tags = [];
+
+  // we use subject tag for RSVP
+  tags.push(["subject", "RSVP"]);
+
+  // we add the channel/event
+  tags.push(["e", createdEventId, "", "root"]);
+
   const event = {
-    content: JSON.stringify({
-      name: name,
-      about: "Channel belonging to community: " + communityPublicKey,
-    }),
-    kind: 40,
-    tags: [["p", communityPublicKey, ""]],
+    content: rsvp,
+    kind: 42,
+    tags,
     created_at: dateToUnix(),
-    pubkey: personPublicKey,
+    pubkey: publicKey,
   };
 
   event.id = getEventHash(event);
-  event.sig = signEvent(event, personPrivateKey);
+  event.sig = getSignature(event, privateKey);
 
   publish(event);
 
   return event;
 }
 
-export async function postToChannel({
+export async function postMessageToEvent({
   content,
   publish,
-  personPublicKey,
-  personPrivateKey,
-  createChannelEventId,
+  publicKey,
+  privateKey,
+  createdEventId,
   respondToPersonId = null,
   respondToMessageId = null,
 }) {
   const tags = [];
 
-  // we add the channel
-  tags.push(["e", createChannelEventId, "", "root"]);
+  // we add the channel/event
+  tags.push(["e", createdEventId, "", "root"]);
 
   // we check if it is a reply
   if (respondToMessageId) {
@@ -157,11 +169,11 @@ export async function postToChannel({
     kind: 42,
     tags,
     created_at: dateToUnix(),
-    pubkey: personPublicKey,
+    pubkey: publicKey,
   };
 
   event.id = getEventHash(event);
-  event.sig = signEvent(event, personPrivateKey);
+  event.sig = getSignature(event, privateKey);
 
   publish(event);
 
@@ -190,7 +202,7 @@ export async function reactToMessage({
   };
 
   event.id = getEventHash(event);
-  event.sig = signEvent(event, personPrivateKey);
+  event.sig = getSignature(event, personPrivateKey);
 
   publish(event);
 
