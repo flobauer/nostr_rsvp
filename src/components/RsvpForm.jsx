@@ -1,19 +1,27 @@
-function RsvpForm() {
+import React, { useState, useEffect } from "react";
+import { useNostr, useNostrEvents } from "nostr-react";
+import { getEvent } from "../helpers/actions";
+
+function RsvpForm({ eventId }) {
+  const [myEvent, setMyEvent] = useState({});
+
+  const { connectedRelays } = useNostr();
+
+  useEffect(() => {
+    getEvent(connectedRelays, eventId, setMyEvent);
+  }, [connectedRelays, eventId]);
+
   return (
     <div className="md:w-1/2 md:flex gap-4">
       <div className="text-3xl py-4">🗓️</div>
       <form className="flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono">
-        <h1 className="font-bold">🔥Grillen bei Engage Technology</h1>
-        <p className="text-gray-500">14.07.2023 ab 15:00 (Freitag)</p>
+        <h1 className="font-bold">{myEvent.name}</h1>
+        <p className="text-gray-500">
+          {myEvent.start?.format("DD.MM.YYYY")} ab{" "}
+          {myEvent.start?.format("H:m")} ({myEvent.start?.format("dddd")})
+        </p>
         <hr className="my-4" />
-        <a
-          className="block text-gray-500"
-          href="https://goo.gl/maps/LjxNPGPgVmzvPhFa6"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          📍Weyringergasse 34/2, 1040 Wien
-        </a>
+        <span className="block text-gray-500">📍{myEvent.location}</span>
 
         <div className="md:flex mt-4 gap-2">
           <p className="py-1">Your name?</p>
@@ -34,22 +42,13 @@ function RsvpForm() {
         </div>
         <div className="md:flex mt-2 gap-2">
           <p className="py-1">Are you coming by?</p>
-          <button
-            onclick="this.form.submitted=1;"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition ml-auto"
-          >
+          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition ml-auto">
             Yes
           </button>
-          <button
-            onclick="this.form.submitted=2;"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition"
-          >
+          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
             Maybe
           </button>
-          <button
-            onclick="this.form.submitted=0;"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition"
-          >
+          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
             No
           </button>
         </div>

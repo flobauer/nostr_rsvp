@@ -16,7 +16,7 @@ export default function Layout() {
             <li
               key={storedEvent.publicKey}
               className="rounded-2xl border w-12 h-12 border-stone-700 bg-stone-600 flex items-center justify-center">
-              <Link to={`/${storedEvent.publicKey}`}>{storedEvent.name}</Link>
+              <Link to={`/${storedEvent.id}`}>{storedEvent.name}</Link>
             </li>
           ))}
         </ul>

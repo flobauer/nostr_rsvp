@@ -1,5 +1,8 @@
 import { dateToUnix } from "nostr-react";
+import { SimplePool } from "nostr-tools";
+
 import dayjs from "dayjs";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   getEventHash,
@@ -12,17 +15,15 @@ export async function createEvent({ newEvent, publish }) {
   const privateKey = generatePrivateKey();
   const publicKey = getPublicKey(privateKey);
 
-  console.log(newEvent);
-
   const event = {
     content: newEvent.description,
-    kind: 31922,
+    kind: 1,
     tags: [
-      ["d", "UUID"],
+      ["d", uuidv4()],
       ["name", newEvent.name],
       // Timestamps
-      ["start", dayjs(newEvent.start).unix()],
-      ["end", dayjs(newEvent.end).unix()],
+      ["start", `${dayjs(newEvent.start).unix()}`],
+      ["end", `${dayjs(newEvent.end).unix()}`],
 
       ["start_tzid", "Europe/Berlin"],
       ["end_tzid", "Europe/Berlin"],
@@ -64,9 +65,42 @@ export async function createEvent({ newEvent, publish }) {
 
   return {
     ...newEvent,
+    ...event,
     publicKey,
     privateKey,
   };
+}
+
+export async function getEvent(relays, id, setEvent) {
+  const pool = new SimplePool();
+
+  let event = await pool.get(
+    relays.map((r) => r.url),
+    {
+      ids: [id],
+    }
+  );
+  const tempEvent = { description: event.content };
+
+  event.tags.forEach((tag) => {
+    if (tag[0] === "name") {
+      tempEvent.name = tag[1];
+    }
+
+    if (tag[0] === "start") {
+      tempEvent.start = dayjs.unix(tag[1]);
+    }
+
+    if (tag[0] === "end") {
+      tempEvent.end = dayjs.unix(tag[1]);
+    }
+
+    if (tag[0] === "location") {
+      tempEvent.location = tag[1];
+    }
+  });
+
+  setEvent(tempEvent);
 }
 
 export async function createChannel({
