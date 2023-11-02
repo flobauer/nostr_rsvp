@@ -1,4 +1,5 @@
 import { dateToUnix } from "nostr-react";
+import dayjs from "dayjs";
 
 import {
   getEventHash,
@@ -7,18 +8,51 @@ import {
   generatePrivateKey,
 } from "nostr-tools";
 
-export async function createEvent({ name, publish }) {
+export async function createEvent({ newEvent, publish }) {
   const privateKey = generatePrivateKey();
   const publicKey = getPublicKey(privateKey);
 
+  console.log(newEvent);
+
   const event = {
-    content: JSON.stringify({
-      name: name,
-      about: "Channels:" + ["general", "random"].join(","),
-      picture: "https://cat-avatars.vercel.app/api/cat?name=" + publicKey,
-    }),
-    kind: 0,
-    tags: [],
+    content: newEvent.description,
+    kind: 31922,
+    tags: [
+      ["d", "UUID"],
+      ["name", newEvent.name],
+      // Timestamps
+      ["start", dayjs(newEvent.start).unix()],
+      ["end", dayjs(newEvent.end).unix()],
+
+      ["start_tzid", "Europe/Berlin"],
+      ["end_tzid", "Europe/Berlin"],
+
+      // Location
+      ["location", newEvent.location],
+      // ["g", "<geohash>"],
+
+      // Participants
+      // [
+      //   "p",
+      //   "<32-bytes hex of a pubkey>",
+      //   "<optional recommended relay URL>",
+      //   "<role>",
+      // ],
+      // [
+      //   "p",
+      //   "<32-bytes hex of a pubkey>",
+      //   "<optional recommended relay URL>",
+      //   "<role>",
+      // ],
+
+      // Hashtags
+      // ["t", "<tag>"],
+      // ["t", "<tag>"],
+
+      // Reference links
+      // ["r", "<url>"],
+      // ["r", "<url>"],
+    ],
     created_at: dateToUnix(),
     pubkey: publicKey,
   };
@@ -29,7 +63,7 @@ export async function createEvent({ name, publish }) {
   publish(event);
 
   return {
-    name,
+    ...newEvent,
     publicKey,
     privateKey,
   };

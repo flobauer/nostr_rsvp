@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import { useLocalStorage } from "./helpers/hooks";
-import { useProfile, useNostrEvents, useNostr } from "nostr-react";
 
 export default function Layout() {
   // we store the events the user is subscribed to in local storage
@@ -15,9 +14,9 @@ export default function Layout() {
         <ul>
           {storedEvents.map((storedEvent) => (
             <li
-              key={storedEvent.pubkey}
+              key={storedEvent.publicKey}
               className="rounded-2xl border w-12 h-12 border-stone-700 bg-stone-600 flex items-center justify-center">
-              <Link to={`/${storedEvent.pubkey}`}>{storedEvent.name}</Link>
+              <Link to={`/${storedEvent.publicKey}`}>{storedEvent.name}</Link>
             </li>
           ))}
         </ul>
