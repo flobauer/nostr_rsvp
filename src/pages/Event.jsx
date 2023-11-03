@@ -120,7 +120,7 @@ function Event() {
     );
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 h-full">
       <RsvpForm event={event} rsvpHandler={rsvpHandler} myRsvp={myRsvp} />
       <RsvpEntries rsvps={rsvps} />
       <MessageBoard
