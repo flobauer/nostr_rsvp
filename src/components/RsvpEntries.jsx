@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import RsvpEntry from "components/RsvpEntry";
-import { UserIcon } from "@heroicons/react/24/outline";
 
 function RsvpEntries({ rsvps }) {
   const yesRsvps = rsvps.filter((rsvp) => rsvp.content === "yes");

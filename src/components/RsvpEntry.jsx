@@ -1,4 +1,5 @@
 import { useProfile } from "nostr-react";
+import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   CheckCircleIcon,
@@ -9,6 +10,7 @@ import {
 // the entries for rsvps, show who is coming
 // @todo: separate file is better
 function RsvpEntry({ message }) {
+  const { user, username } = useOutletContext();
   // get profile data
   const { data: userData } = useProfile({
     pubkey: message.pubkey,
@@ -25,7 +27,14 @@ function RsvpEntry({ message }) {
       {message.content === "no" && (
         <XCircleIcon className="h-6 w-6 icon mr-1" />
       )}
-      {userData?.name}
+      {user.publicKey !== message.pubkey ? (
+        <span>{userData?.name}</span>
+      ) : (
+        <>
+          <span>{username}</span>
+          <small>(You)</small>
+        </>
+      )}
     </li>
   );
 }

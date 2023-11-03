@@ -17,5 +17,5 @@
 }
 
 .input {
-  @apply rounded-full border border-gray-200 py-1 px-4 ml-auto;
+  @apply rounded-full border border-gray-200 py-1 px-4;
 }

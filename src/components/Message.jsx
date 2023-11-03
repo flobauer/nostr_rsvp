@@ -16,8 +16,9 @@ function Message({ message }) {
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-end">
         <strong>
-          {user.publicKey !== message.pubkey && <span>{userData?.name}</span>}{" "}
-          {user.publicKey === message.pubkey && (
+          {user.publicKey !== message.pubkey ? (
+            <span>{userData?.name}</span>
+          ) : (
             <>
               <span>{username}</span>
               <small>(You)</small>

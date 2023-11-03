@@ -28,18 +28,18 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
         <hr className="my-4" />
         <span className="block text-gray-500">📍{event.location}</span>
 
-        <div className="md:flex mt-4 gap-2">
+        <div className="md:grid grid-cols-3 mt-4 gap-2">
           <p className="py-1">Your name?</p>
           <input
             onChange={(e) => setUsername(e.target.value)}
             value={username}
-            className="input"
+            className="input col-span-2"
             required
           />
         </div>
-        <div className="md:flex mt-2 gap-2">
+        <div className="md:grid grid-cols-3 mt-2 gap-2">
           <p className="py-1">Are you coming by?</p>
-          <div className="ml-auto">
+          <div className="col-span-2 flex gap-2">
             <button
               name="yes"
               className={classNames(
@@ -52,7 +52,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             <button
               name="maybe"
               className={classNames(
-                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "input",
                 "hover:bg-sky-800 hover:text-white",
                 myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
               )}>
@@ -61,7 +61,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             <button
               name="no"
               className={classNames(
-                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "input",
                 "hover:bg-sky-800 hover:text-white",
                 myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
               )}>
@@ -69,11 +69,11 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             </button>
           </div>
         </div>
-        <div className="md:flex mt-2 gap-2">
+        <div className="md:grid grid-cols-3 mt-2 gap-2">
           <p className="py-1">Is somebody joining you?</p>
           <input
             type="number"
-            className="input"
+            className="input col-span-2"
             onChange={(e) => setRsvp({ ...rsvp, guests: e.target.value })}
             value={rsvp.guests}
           />

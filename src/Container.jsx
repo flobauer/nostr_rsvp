@@ -41,7 +41,7 @@ export default function Container() {
   };
 
   return (
-    <div className="w-full max-w-6xl">
+    <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
         <h1 className="font-mono font-bold text-lg pl-4">Ripidipi</h1>
         <DropDown events={events} setNostrOpen={setShowNostrSettings} />
@@ -63,17 +63,39 @@ export default function Container() {
       </main>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form className="flex flex-col gap-2" onSubmit={updateProfileHandler}>
-          <label>Public Key</label>
+          <h1 className="font-mono text-lg font-bold">Nostr Settings</h1>
+          <p className="text-gray-800 text-sm font-sans">
+            The Nostr protocol, short for "Notes and Other Stuff Transmitted by
+            Relays," is a digital communication system designed to be simple and
+            open. This system ensures that no single company or server has
+            control over the conversation, championing the freedom of speech and
+            making sure that your ability to communicate isn't easily shut down
+            by any one entity.
+          </p>
+          <p className="text-gray-800 text-sm font-sans mb-4">
+            That said, it is also transparent, which means that this event and
+            everybody joining it is somewhere in the protocol. If you want to
+            learn more about Nostr, check out{" "}
+            <a href="https://nostr.org" className="text-purple-800 underline">
+              nostr.org
+            </a>
+            .
+          </p>
+          <label className="font-bold font-mono">Public Key</label>
           <input
+            className="input"
             value={user.publicKey}
             onChange={(e) => setUser({ ...user, publicKey: e.target.value })}
           />
-          <label>Private Key</label>
+          <label className="font-bold mt-4 font-mono">Private Key</label>
           <input
+            className="input"
             value={user.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
-          <button>Login</button>
+          <button className="bg-blue-900 input text-white font-mono">
+            Save Nostr Credentials
+          </button>
         </form>
       </Modal>
     </div>
