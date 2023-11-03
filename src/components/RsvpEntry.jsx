@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useProfile } from "nostr-react";
 import PropTypes from "prop-types";
-import { useNostr, useNostrEvents, useProfile } from "nostr-react";
-import { useParams } from "react-router-dom";
-import MessageBoard from "components/MessageBoard";
-import RsvpForm from "components/RsvpForm";
 import {
-  getEvent,
-  rsvpToEvent,
-  postMessageToEvent,
-  updateUserProfileIfNameChanged,
-} from "helpers/actions";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+  CheckCircleIcon,
+  QuestionMarkCircleIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/solid";
 
 // the entries for rsvps, show who is coming
 // @todo: separate file is better
@@ -22,9 +15,17 @@ function RsvpEntry({ message }) {
   });
   return (
     <li
-      className={`text-xs rounded-full bg-slate-100 flex items-center ${message?.content}-status p-1`}>
-      <CheckCircleIcon className="h-4 w-4 icon mr-1" />
-      {userData?.name} ({message?.content})
+      className={`rounded-full bg-slate-100 flex items-center ${message?.content}-status p-1 pr-2`}>
+      {message.content === "yes" && (
+        <CheckCircleIcon className="h-6 w-6 icon mr-1" />
+      )}
+      {message.content === "maybe" && (
+        <QuestionMarkCircleIcon className="h-6 w-6 icon mr-1" />
+      )}
+      {message.content === "no" && (
+        <XCircleIcon className="h-6 w-6 icon mr-1" />
+      )}
+      {userData?.name}
     </li>
   );
 }

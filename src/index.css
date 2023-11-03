@@ -11,3 +11,7 @@
 .maybe-status > .icon {
   @apply text-yellow-500;
 }
+
+.card {
+  @apply flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono;
+}

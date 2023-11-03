@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
+import { useOutletContext } from "react-router-dom";
 import { useProfile } from "nostr-react";
 import dayjs from "dayjs";
 
 function Message({ message }) {
+  const { user } = useOutletContext();
   // get profile data
   const { data: userData } = useProfile({
     pubkey: message.pubkey,
@@ -13,7 +15,10 @@ function Message({ message }) {
   return (
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-end">
-        <strong>{userData?.name}</strong>
+        <strong>
+          {userData?.name}{" "}
+          {user.publicKey === message.pubkey && <small>(You)</small>}
+        </strong>
         <span className="text-gray-500 text-sm ml-auto">
           {dayjs.unix(message.created_at).format("DD.MM.YYYY HH:mm")}
         </span>

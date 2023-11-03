@@ -19,10 +19,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
 
   return (
     <div className="md:flex gap-4">
-      <form
-        onSubmit={submitHandler}
-        className="flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono"
-      >
+      <form onSubmit={submitHandler} className="card">
         <h1 className="font-bold">🗓️ {event.name}</h1>
         <p className="text-gray-500">
           {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("HH:mm")}{" "}
@@ -43,36 +40,33 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
         <div className="md:flex mt-2 gap-2">
           <p className="py-1">Are you coming by?</p>
           <div className="ml-auto">
-          <button
-            name="yes"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
-            )}
-          >
-            Yes
-          </button>
-          <button
-            name="maybe"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
-            )}
-          >
-            Maybe
-          </button>
-          <button
-            name="no"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
-            )}
-          >
-            No
-          </button>
+            <button
+              name="yes"
+              className={classNames(
+                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "hover:bg-sky-800 hover:text-white",
+                myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
+              )}>
+              Yes
+            </button>
+            <button
+              name="maybe"
+              className={classNames(
+                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "hover:bg-sky-800 hover:text-white",
+                myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
+              )}>
+              Maybe
+            </button>
+            <button
+              name="no"
+              className={classNames(
+                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "hover:bg-sky-800 hover:text-white",
+                myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
+              )}>
+              No
+            </button>
           </div>
         </div>
         <div className="md:flex mt-2 gap-2">

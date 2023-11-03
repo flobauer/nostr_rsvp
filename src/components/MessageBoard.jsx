@@ -22,9 +22,10 @@ function MessageBoard({ messages, messageHandler }) {
   // @todo: maybe do answer to messages, we have that functionality in messagehandler
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 text-lg font-mono">
+    <div className="card">
       <div className="overflow-y-auto h-64 mb-4">
         <h1 className="font-bold mb-4">💬 Message Board</h1>
+        <hr className="my-2" />
         {messages.map((message, index) => (
           <Message key={index} message={message} />
         ))}
@@ -68,6 +69,11 @@ MessageBoard.propTypes = {
     })
   ),
   messageHandler: PropTypes.func,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    publicKey: PropTypes.string,
+    privateKey: PropTypes.string,
+  }),
 };
 
 export default MessageBoard;

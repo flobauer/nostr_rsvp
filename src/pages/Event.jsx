@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import PropTypes from "prop-types";
-import { useNostr, useNostrEvents, useProfile } from "nostr-react";
+import { useNostr, useNostrEvents } from "nostr-react";
 import { useParams } from "react-router-dom";
 import MessageBoard from "components/MessageBoard";
 import RsvpForm from "components/RsvpForm";
-import RsvpEntry from "components/RsvpEntry";
+import RsvpEntries from "components/RsvpEntries";
 import {
   getEvent,
   rsvpToEvent,
@@ -32,7 +31,9 @@ function Event() {
 
   // get the Event data
   useEffect(() => {
-    getEvent(connectedRelays, eventId, setEvent).then((event) => {});
+    getEvent(connectedRelays, eventId, setEvent).then((event) => {
+      // @todo: save envent to event list
+    });
   }, [connectedRelays, eventId]);
 
   // the RSVP action
@@ -90,7 +91,7 @@ function Event() {
     );
 
   // the rsvps of the event
-  const rsvp = Object.values(
+  const rsvps = Object.values(
     rsvpAll.reduce((acc, event) => {
       // Assuming `event.created_at` or a similar property is the timestamp
       // and `event.pubKey` is the property you want to use to check for duplicates.
@@ -121,16 +122,11 @@ function Event() {
   return (
     <div className="flex flex-col gap-10">
       <RsvpForm event={event} rsvpHandler={rsvpHandler} myRsvp={myRsvp} />
-
-      <ul className="flex flex-wrap -space-x-4">
-        {rsvp.map((rsvp) => (
-          <RsvpEntry key={rsvp.id} message={rsvp} />
-        ))}
-      </ul>
+      <RsvpEntries rsvps={rsvps} />
       <MessageBoard
-        event={event}
         messageHandler={messageHandler}
         messages={messages}
+        user={user}
       />
     </div>
   );
