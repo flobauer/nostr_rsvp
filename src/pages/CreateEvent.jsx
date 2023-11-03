@@ -73,14 +73,14 @@ export default function CreateEvent() {
           value={event.name}
           className="input"
         />
-        <label>Event Description:</label>
+        {/* <label>Event Description:</label>
         <input
           onChange={(e) =>
             setEvent((prev) => ({ ...prev, description: e.target.value }))
           }
           value={event.description}
           className="input"
-        />
+        /> */}
 
         <label>Event Start Date:</label>
         <input
@@ -89,12 +89,12 @@ export default function CreateEvent() {
           className="input"
         />
 
-        <label>Event End Date:</label>
+        {/* <label>Event End Date:</label>
         <input
           type="datetime-local"
           onChange={(e) => handleDateChange(e, "end")}
           className="input"
-        />
+        /> */}
 
         <label>Event Location:</label>
         <input
