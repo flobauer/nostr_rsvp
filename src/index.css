@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.yes-status {
-  @apply bg-green-300;
+.yes-status > .icon {
+  @apply text-green-500;
 }
-.no-status {
-  @apply bg-red-300;
+.no-status > .icon {
+  @apply text-red-500;
 }
-.maybe-status {
-  @apply bg-yellow-300;
+.maybe-status > .icon {
+  @apply text-yellow-500;
 }

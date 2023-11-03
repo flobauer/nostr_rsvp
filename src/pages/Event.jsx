@@ -5,6 +5,7 @@ import { useNostr, useNostrEvents, useProfile } from "nostr-react";
 import { useParams } from "react-router-dom";
 import MessageBoard from "components/MessageBoard";
 import RsvpForm from "components/RsvpForm";
+import RsvpEntry from "components/RsvpEntry";
 import {
   getEvent,
   rsvpToEvent,
@@ -31,7 +32,7 @@ function Event() {
 
   // get the Event data
   useEffect(() => {
-    getEvent(connectedRelays, eventId, setEvent);
+    getEvent(connectedRelays, eventId, setEvent).then((event) => {});
   }, [connectedRelays, eventId]);
 
   // the RSVP action
@@ -123,7 +124,7 @@ function Event() {
 
       <ul className="flex flex-wrap -space-x-4">
         {rsvp.map((rsvp) => (
-          <Entry key={rsvp.id} message={rsvp} />
+          <RsvpEntry key={rsvp.id} message={rsvp} />
         ))}
       </ul>
       <MessageBoard
@@ -134,28 +135,5 @@ function Event() {
     </div>
   );
 }
-
-// the entries for rsvps, show who is coming
-// @todo: separate file is better
-function Entry({ message }) {
-  // get profile data
-  const { data: userData } = useProfile({
-    pubkey: message.pubkey,
-  });
-  return (
-    <li
-      className={`w-24 h-24 text-xs rounded-full bg-slate-200 flex items-center justify-center text-center border-4 border-white ${message?.content}-status`}>
-      {userData?.name} ({message?.content})
-    </li>
-  );
-}
-
-Entry.propTypes = {
-  message: PropTypes.shape({
-    pubkey: PropTypes.string.isRequired,
-    created_at: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Event;
