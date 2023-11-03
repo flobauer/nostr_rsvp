@@ -101,7 +101,7 @@ function Entry({ message }) {
   console.log(userData);
   return (
     <li className="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center border border-blue-900">
-      {userData.name}
+      {userData?.name}
     </li>
   );
 }
