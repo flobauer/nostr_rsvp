@@ -65,7 +65,10 @@ export default function Container() {
   return (
     <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
-        <h1 className="font-bold text-lg pl-4">RSVPlease</h1>
+        <h1 className="font-bold text-lg pl-4 flex items-center text-amber-600">
+          <img src="/pizza-icon.svg" className="w-12 h-12" />
+          RSVPlease
+        </h1>
         <DropDown
           events={events}
           setNostrOpen={setShowNostrSettings}
