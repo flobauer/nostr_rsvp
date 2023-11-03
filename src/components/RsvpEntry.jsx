@@ -15,6 +15,14 @@ function RsvpEntry({ message }) {
   const { data: userData } = useProfile({
     pubkey: message.pubkey,
   });
+
+  // get +1s in the tags (joined by)
+  const numberOfPlusOnes = message?.tags?.filter(
+    (tag) => tag[0] === "joined_by"
+  );
+
+  console.log(numberOfPlusOnes);
+
   return (
     <li
       className={`rounded-full bg-slate-100 flex items-center ${message?.content}-status p-1 pr-2`}>
@@ -34,6 +42,9 @@ function RsvpEntry({ message }) {
           <span>{username}</span>
           <small>(You)</small>
         </>
+      )}
+      {numberOfPlusOnes.length > 0 && parseInt(numberOfPlusOnes[0][1]) > 0 && (
+        <span className="ml-1">+{numberOfPlusOnes[0][1]}</span>
       )}
     </li>
   );

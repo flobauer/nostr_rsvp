@@ -44,8 +44,4 @@ function ShareButton() {
   );
 }
 
-ShareButton.propTypes = {
-  copyText: PropTypes.string.isRequired,
-};
-
 export default ShareButton;

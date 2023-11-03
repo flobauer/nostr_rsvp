@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import { classNames } from "helpers/util";
@@ -17,6 +17,16 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
     rsvp.attending = e.nativeEvent.submitter.name;
     rsvpHandler(rsvp);
   };
+
+  useEffect(() => {
+    if (myRsvp) {
+      const plusOnes = myRsvp.tags.find((tag) => tag[0] === "joined_by");
+      setRsvp({
+        guests: plusOnes ? plusOnes[1] : 0,
+        attending: myRsvp.content,
+      });
+    }
+  }, [myRsvp]);
 
   return (
     <div className="md:flex gap-4">
