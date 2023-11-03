@@ -19,11 +19,11 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
 
   return (
     <div className="md:flex gap-4">
-      <div className="text-3xl py-4">🗓️</div>
       <form
         onSubmit={submitHandler}
-        className="flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono">
-        <h1 className="font-bold">{event.name}</h1>
+        className="flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono"
+      >
+        <h1 className="font-bold">🗓️ {event.name}</h1>
         <p className="text-gray-500">
           {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("HH:mm")}{" "}
           ({event.start?.format("dddd")})
@@ -41,6 +41,41 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
           />
         </div>
         <div className="md:flex mt-2 gap-2">
+          <p className="py-1">Are you coming by?</p>
+          <div className="ml-auto">
+          <button
+            name="yes"
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
+            )}
+          >
+            Yes
+          </button>
+          <button
+            name="maybe"
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
+            )}
+          >
+            Maybe
+          </button>
+          <button
+            name="no"
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
+            )}
+          >
+            No
+          </button>
+          </div>
+        </div>
+        <div className="md:flex mt-2 gap-2">
           <p className="py-1">Is somebody joining you?</p>
           <input
             type="number"
@@ -48,36 +83,6 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             onChange={(e) => setRsvp({ ...rsvp, guests: e.target.value })}
             value={rsvp.guests}
           />
-        </div>
-        <div className="md:flex mt-2 gap-2">
-          <p className="py-1">Are you coming by?</p>
-          <button
-            name="yes"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
-            )}>
-            Yes
-          </button>
-          <button
-            name="maybe"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
-            )}>
-            Maybe
-          </button>
-          <button
-            name="no"
-            className={classNames(
-              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
-              "hover:bg-sky-800 hover:text-white",
-              myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
-            )}>
-            No
-          </button>
         </div>
       </form>
     </div>
