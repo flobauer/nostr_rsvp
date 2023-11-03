@@ -87,6 +87,48 @@ export default function Container() {
           />
         </div>
       </main>
+      <footer className="pb-16">
+        <p className="italic text-gray-600 px-4 pt-4">
+          This application runs on the nostr protocol, which is a decentralized
+          and cencorship resistant protocol on the internet. If you want to
+          learn more about nostr, check out{" "}
+          <a
+            href="https://nostr.com"
+            className="underline"
+            target="_blank"
+            rel="noreferrer">
+            nostr.com
+          </a>
+          . Just remember, what you share is public for everyone to see, so
+          think before you post.
+        </p>
+        <p className="italic text-gray-600 px-4 py-2">
+          Made by{" "}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+            href="https://github.com/flobauer">
+            flobauer
+          </a>{" "}
+          &{" "}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+            href="https://github.com/mtsarah">
+            mtsarah
+          </a>{" "}
+          in Vienna.{" "}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+            href="https://github.com/flobauer/nostr_rsvp">
+            See Source
+          </a>
+        </p>
+      </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form className="flex flex-col gap-2" onSubmit={updateProfileHandler}>
           <h1 className="font-mono text-lg font-bold">Nostr Settings</h1>
@@ -123,11 +165,11 @@ export default function Container() {
             value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
-          <button className="bg-blue-900 input text-white font-mono">
+          <button className="bg-sky-600 input text-white font-mono">
             Save Nostr Credentials
           </button>
           <button
-            className="text-blue-900 input font-mono"
+            className="text-sky-600 input font-mono"
             onClick={generateHandler}>
             Generate new Credentials
           </button>

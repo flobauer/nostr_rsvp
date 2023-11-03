@@ -105,25 +105,11 @@ export default function CreateEvent() {
           className="input"
         />
         <div>
-          <button className="text-left bg-emerald-800 text-white input">
+          <button className="text-left bg-sky-600 text-white input">
             Create Event
           </button>
         </div>
       </form>
-      <p className="italic text-gray-600 p-4">
-        This application has no backend - it runs on the nostr protocol, which
-        is a decentralized and cencorship resistant protocol. If you want to
-        learn more about nostr, check out{" "}
-        <a
-          href="https://nostr.com"
-          className="text-purple-800 underline"
-          target="_blank"
-          rel="noreferrer">
-          nostr.com
-        </a>
-        . That said, the event data is not private but public so be careful with
-        the information you share.
-      </p>
     </div>
   );
 }
