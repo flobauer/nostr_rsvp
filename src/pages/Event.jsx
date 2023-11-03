@@ -78,17 +78,35 @@ function Event() {
 
   // rsvps + messages
   // @todo: filtering could be better (we filter first on subject tag, then if the message is about this event)
-  // @todo: only show the last RSVP of a user
   // @todo: differentiate between yesses, maybes and nos
   // @todo: the timestamps of the event/messages/rsvps should probably be checked with the local timezone of user?
   // @todo: get the last RSVP from the visitor/user and show it in the form.
-  const rsvp = events
+  const rsvpAll = events
     .filter((event) =>
       event.tags.some((tag) => tag[0] === "subject" && tag[1] === "RSVP")
     )
     .filter((event) =>
       event.tags.some((tag) => tag[0] === "e" && tag[1] === eventId)
     );
+
+  // the rsvps of the event
+  const rsvp = Object.values(
+    rsvpAll.reduce((acc, event) => {
+      // Assuming `event.created_at` or a similar property is the timestamp
+      // and `event.pubKey` is the property you want to use to check for duplicates.
+      const existingEvent = acc[event.pubkey];
+      if (
+        !existingEvent ||
+        new Date(event.created_at) > new Date(existingEvent.created_at)
+      ) {
+        acc[event.pubkey] = event;
+      }
+      return acc;
+    }, {})
+  );
+
+  // my last rsvp
+  const myRsvp = rsvpAll.find((rsvp) => rsvp.pubkey === user.publicKey);
 
   // @todo: maybe mark your own messages?
   const messages = events
@@ -102,14 +120,9 @@ function Event() {
 
   return (
     <div className="flex flex-col gap-10">
-      <RsvpForm
-        event={event}
-        rsvpHandler={rsvpHandler}
-        user={user}
-        setUser={setUser}
-      />
+      <RsvpForm event={event} rsvpHandler={rsvpHandler} myRsvp={myRsvp} />
 
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap -space-x-4">
         {rsvp.map((rsvp) => (
           <Entry key={rsvp.id} message={rsvp} />
         ))}
@@ -118,8 +131,6 @@ function Event() {
         event={event}
         messageHandler={messageHandler}
         messages={messages}
-        user={user}
-        setUser={setUser}
       />
     </div>
   );
@@ -133,8 +144,9 @@ function Entry({ message }) {
     pubkey: message.pubkey,
   });
   return (
-    <li className="w-16 h-16 text-xs rounded-full bg-slate-200 flex items-center justify-center border border-blue-900">
-      {userData?.name}
+    <li
+      className={`w-24 h-24 text-xs rounded-full bg-slate-200 flex items-center justify-center text-center border-4 border-white ${message?.content}-status`}>
+      {userData?.name} ({message?.content})
     </li>
   );
 }

@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.yes-status {
+  @apply bg-green-300;
+}
+.no-status {
+  @apply bg-red-300;
+}
+.maybe-status {
+  @apply bg-yellow-300;
+}

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
+import { classNames } from "helpers/util";
 
-function RsvpForm({ event, rsvpHandler }) {
+function RsvpForm({ event, myRsvp, rsvpHandler }) {
   const { username, setUsername } = useOutletContext();
   const [rsvp, setRsvp] = useState({
     guests: 0,
@@ -52,17 +53,29 @@ function RsvpForm({ event, rsvpHandler }) {
           <p className="py-1">Are you coming by?</p>
           <button
             name="yes"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition ml-auto">
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp.content === "yes" ? "bg-blue-600 text-white" : ""
+            )}>
             Yes
           </button>
           <button
             name="maybe"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp.content === "maybe" ? "bg-blue-600 text-white" : ""
+            )}>
             Maybe
           </button>
           <button
             name="no"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
+            className={classNames(
+              "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
+              "hover:bg-sky-800 hover:text-white",
+              myRsvp.content === "no" ? "bg-blue-600 text-white" : ""
+            )}>
             No
           </button>
         </div>
@@ -76,6 +89,9 @@ RsvpForm.propTypes = {
     name: PropTypes.string,
     start: PropTypes.object,
     location: PropTypes.string,
+  }),
+  myRsvp: PropTypes.shape({
+    content: PropTypes.string,
   }),
   rsvpHandler: PropTypes.func,
 };
