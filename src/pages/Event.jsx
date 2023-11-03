@@ -50,12 +50,11 @@ function Event() {
       setUser,
       publish,
     });
-
     // send an rsvp to the event
     // @todo: we should only do this, if the user hasn't sent an rsvp yet
     // or maybe we should allow it and see it as an updated rsvp (change from yes to no f.e.)
     await rsvpToEvent({
-      rsvp: rsvp.attending,
+      rsvp,
       publish,
       publicKey: user.publicKey,
       privateKey: user.privateKey,
@@ -125,7 +124,7 @@ function Event() {
     );
 
   return (
-    <div className="flex flex-col gap-10 h-full">
+    <div className="flex flex-col gap-10">
       <RsvpForm event={event} rsvpHandler={rsvpHandler} myRsvp={myRsvp} />
       <RsvpEntries rsvps={rsvps} />
       <MessageBoard

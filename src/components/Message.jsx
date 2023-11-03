@@ -15,21 +15,21 @@ function Message({ message }) {
   return (
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-end">
-        <strong>
+        <div className="text-gray-800">
           {user.publicKey !== message.pubkey ? (
-            <span>{userData?.name}</span>
+            <strong>{userData?.name}</strong>
           ) : (
             <>
-              <span>{username}</span>
-              <small>(You)</small>
+              <strong>{username}</strong>
+              <small className="pl-1">(You)</small>
             </>
           )}
-        </strong>
+        </div>
         <span className="text-gray-500 text-sm ml-auto">
           {dayjs.unix(message.created_at).format("DD.MM.YYYY HH:mm")}
         </span>
       </div>
-      <p>{message?.content}</p>
+      <p className="font-sans">{message?.content}</p>
     </div>
   );
 }

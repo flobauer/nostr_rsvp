@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { getPublicKey, generatePrivateKey } from "nostr-tools";
 
 import { useLocalStorage } from "helpers/hooks";
 
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import DropDown from "./components/DropDown";
 import Modal from "./components/Modal";
 
@@ -38,6 +37,21 @@ export default function Container() {
     // @todo: check if the keys are valid
 
     setShowNostrSettings(false);
+  };
+
+  const generateHandler = (e) => {
+    e.preventDefault();
+
+    if (!confirm("Are you sure you want to generate new credentials?")) return;
+
+    const privateKey = generatePrivateKey();
+    const publicKey = getPublicKey(privateKey);
+
+    setUser({
+      name: username,
+      publicKey,
+      privateKey,
+    });
   };
 
   return (
@@ -95,6 +109,11 @@ export default function Container() {
           />
           <button className="bg-blue-900 input text-white font-mono">
             Save Nostr Credentials
+          </button>
+          <button
+            className="text-blue-900 input font-mono"
+            onClick={generateHandler}>
+            Generate new Credentials
           </button>
         </form>
       </Modal>

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import { classNames } from "helpers/util";
+import ShareButton from "./ShareButton";
 
 function RsvpForm({ event, myRsvp, rsvpHandler }) {
   const { username, setUsername } = useOutletContext();
@@ -17,9 +18,20 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
     rsvpHandler(rsvp);
   };
 
+  useEffect(() => {
+    if (myRsvp) {
+      const plusOnes = myRsvp.tags.find((tag) => tag[0] === "joined_by");
+      setRsvp({
+        guests: plusOnes ? plusOnes[1] : 0,
+        attending: myRsvp.content,
+      });
+    }
+  }, [myRsvp]);
+
   return (
     <div className="md:flex gap-4">
       <form onSubmit={submitHandler} className="card">
+        <ShareButton />
         <h1 className="font-bold">🗓️ {event.name}</h1>
         <p className="text-gray-500">
           {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("HH:mm")}{" "}
@@ -44,8 +56,8 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
               name="yes"
               className={classNames(
                 "input",
-                "hover:bg-sky-800 hover:text-white",
-                myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
+                "hover:bg-green-400 hover:text-white",
+                myRsvp?.content === "yes" ? "bg-green-500 text-white" : ""
               )}>
               Yes
             </button>
@@ -53,8 +65,8 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
               name="maybe"
               className={classNames(
                 "input",
-                "hover:bg-sky-800 hover:text-white",
-                myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
+                "hover:bg-yellow-400 hover:text-white",
+                myRsvp?.content === "maybe" ? "bg-yellow-500 text-white" : ""
               )}>
               Maybe
             </button>
@@ -62,8 +74,8 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
               name="no"
               className={classNames(
                 "input",
-                "hover:bg-sky-800 hover:text-white",
-                myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
+                "hover:bg-red-400 hover:text-white",
+                myRsvp?.content === "no" ? "bg-red-500 text-white" : ""
               )}>
               No
             </button>

@@ -136,17 +136,19 @@ export async function rsvpToEvent({
 }) {
   const tags = [];
 
-  // @todo: where do we save the +1 of the event
-  // @todo: how do we save if the person is coming or not, ist it in content enough?
-
   // we use subject tag for RSVP (@todo - check that, feels wrong)
   tags.push(["subject", "RSVP"]);
+
+  // this is not in the standard, but we use it to indicate the number of guests
+  if (rsvp.guests > 0) {
+    tags.push(["joined_by", rsvp.guests]);
+  }
 
   // we add the channel/event
   tags.push(["e", createdEventId, "", "root"]);
 
   const event = {
-    content: rsvp,
+    content: rsvp.attending,
     kind: 42,
     tags,
     created_at: dateToUnix(),

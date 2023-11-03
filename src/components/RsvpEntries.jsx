@@ -6,13 +6,45 @@ function RsvpEntries({ rsvps }) {
   const maybeRsvps = rsvps.filter((rsvp) => rsvp.content === "maybe");
   const noRsvps = rsvps.filter((rsvp) => rsvp.content === "no");
 
+  const yesPlusOnes = yesRsvps.reduce((acc, rsvp) => {
+    const numberOfPlusOnes = rsvp?.tags?.filter(
+      (tag) => tag[0] === "joined_by"
+    );
+    if (numberOfPlusOnes.length > 0) {
+      acc += parseInt(numberOfPlusOnes[0][1]);
+    }
+    return acc;
+  }, 0);
+
+  const maybePlusOnes = maybeRsvps.reduce((acc, rsvp) => {
+    const numberOfPlusOnes = rsvp?.tags?.filter(
+      (tag) => tag[0] === "joined_by"
+    );
+    if (numberOfPlusOnes.length > 0) {
+      acc += parseInt(numberOfPlusOnes[0][1]);
+    }
+    return acc;
+  }, 0);
+
+  const noPlusOnes = noRsvps.reduce((acc, rsvp) => {
+    const numberOfPlusOnes = rsvp?.tags?.filter(
+      (tag) => tag[0] === "joined_by"
+    );
+    if (numberOfPlusOnes.length > 0) {
+      acc += parseInt(numberOfPlusOnes[0][1]);
+    }
+    return acc;
+  }, 0);
+
   return (
     <div className="card">
       <h1 className="mb-4">
         <span className="font-bold">🧑🏽‍🤝‍🧑🏻 Participants</span> (
-        <span className="text-green-500">{yesRsvps.length}</span>/
-        <span className="text-yellow-500">{maybeRsvps.length}</span>/
-        <span className="text-red-500">{noRsvps.length}</span>)
+        <span className="text-green-500">{yesRsvps.length + yesPlusOnes}</span>/
+        <span className="text-yellow-500">
+          {maybeRsvps.length + maybePlusOnes}
+        </span>
+        /<span className="text-red-500">{noRsvps.length + noPlusOnes}</span>)
       </h1>
       <hr className="my-4" />
       <div className="flex flex-col gap-2">
