@@ -16,7 +16,7 @@ function Event() {
   const { eventId } = useParams();
 
   // get user and username from context
-  const { user, setUser, username } = useOutletContext();
+  const { user, setUser, username, events: eventList, setEvents } = useOutletContext();
   const { connectedRelays, publish } = useNostr();
 
   const [event, setEvent] = useState({});
@@ -32,9 +32,14 @@ function Event() {
   // get the Event data
   useEffect(() => {
     getEvent(connectedRelays, eventId, setEvent).then((event) => {
-      // @todo: save envent to event list
+      // @todo: check if event is in eventList
+      const isInEventList = eventList.find((e) => e.id === event.id);
+
+      if (!isInEventList) {
+        setEvents([...eventList, event]);
+      }
     });
-  }, [connectedRelays, eventId]);
+  }, [connectedRelays, eventId, eventList, setEvents]);
 
   // the RSVP action
   const rsvpHandler = async (rsvp) => {
