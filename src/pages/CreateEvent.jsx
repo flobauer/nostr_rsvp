@@ -54,7 +54,11 @@ export default function CreateEvent() {
 
   return (
     <div className="mt-16">
-      <h1 className="text-2xl font-bold px-4 mb-4">A very Simple RSVP App</h1>
+      <h1 className="text-5xl font-bold px-4 mb-4 text-sky-700">
+        Receive your <br />
+        Event Confirmations <br />
+        with a Breeze...
+      </h1>
 
       <form
         className="grid grid-cols-2 gap-2 font-mono card"
