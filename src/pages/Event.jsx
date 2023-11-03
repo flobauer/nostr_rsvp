@@ -77,10 +77,9 @@ function Event() {
   };
 
   // rsvps + messages
-  // @todo: filtering could be better (we filter first on subject tag, then if the message is about this event)
-  // @todo: differentiate between yesses, maybes and nos
-  // @todo: the timestamps of the event/messages/rsvps should probably be checked with the local timezone of user?
-  // @todo: get the last RSVP from the visitor/user and show it in the form.
+  // @todo: filtering could be better (we filter first on subject tag, then if the message is about this event as switching between events doesn't reload the events variable)
+  // @todo: differentiate between yesses, maybes and nos - different lists, how do other pages do that.
+  // @todo: i don't understand how timezones work here...
   const rsvpAll = events
     .filter((event) =>
       event.tags.some((tag) => tag[0] === "subject" && tag[1] === "RSVP")
