@@ -54,20 +54,23 @@ export default function CreateEvent() {
 
   return (
     <div className="mt-8 md:mt-16">
-      <h1 className="text-3xl md:text-5xl font-bold px-4 mb-4 text-sky-700">
-        Receive your <br />
-        Event Confirmations <br />
-        with a Breeze...
+      <h1 className="text-3xl md:text-5xl font-bold px-4 mb-4 text-amber-600">
+        Surprise Visitors? <br />
+        Only if They're Bringing Pizza
       </h1>
+      <p className="text-lg px-5 mb-4 text-gray-700">
+        Receive your Event Confirmations with a Breeze...
+      </p>
 
       <form
-        className="flex flex-col md:grid grid-cols-3 gap-2 font-mono card"
+        className="flex flex-col md:grid grid-cols-3 gap-2 card"
         onSubmit={submitHandler}>
         <label>Your Name:</label>
         <input
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           className="input mb-2 col-span-2"
+          placeholder="John Doe"
         />
         <label>Event Name:</label>
         <input
@@ -75,6 +78,7 @@ export default function CreateEvent() {
             setEvent((prev) => ({ ...prev, name: e.target.value }))
           }
           value={event.name}
+          placeholder="My Birthday Party"
           className="input mb-2 col-span-2"
         />
         {/* <label>Event Description:</label>
@@ -107,9 +111,10 @@ export default function CreateEvent() {
           }
           value={event.location}
           className="input mb-2 col-span-2"
+          placeholder="My House"
         />
         <div className="col-span-2 ">
-          <button className="text-left bg-sky-600 text-white input">
+          <button className="text-left bg-amber-600 text-white input">
             Create Event
           </button>
         </div>

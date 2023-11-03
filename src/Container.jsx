@@ -65,7 +65,7 @@ export default function Container() {
   return (
     <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
-        <h1 className="font-mono font-bold text-lg pl-4">RSVPlease</h1>
+        <h1 className="font-bold text-lg pl-4">RSVPlease</h1>
         <DropDown
           events={events}
           setNostrOpen={setShowNostrSettings}
@@ -131,7 +131,7 @@ export default function Container() {
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form className="flex flex-col gap-2" onSubmit={updateProfileHandler}>
-          <h1 className="font-mono text-lg font-bold">Nostr Settings</h1>
+          <h1 className="text-lg font-bold">Nostr Settings</h1>
           <p className="text-gray-800 text-sm font-sans">
             The Nostr protocol, short for "Notes and Other Stuff Transmitted by
             Relays," is a digital communication system designed to be simple and
@@ -153,24 +153,22 @@ export default function Container() {
             </a>
             .
           </p>
-          <label className="font-bold font-mono">Public Key</label>
+          <label className="font-bold">Public Key</label>
           <input
             className="input"
             value={user?.publicKey}
             onChange={(e) => setUser({ ...user, publicKey: e.target.value })}
           />
-          <label className="font-bold mt-4 font-mono">Private Key</label>
+          <label className="font-bold mt-4">Private Key</label>
           <input
             className="input"
             value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
-          <button className="bg-sky-600 input text-white font-mono">
+          <button className="bg-amber-600 input text-white">
             Save Nostr Credentials
           </button>
-          <button
-            className="text-sky-600 input font-mono"
-            onClick={generateHandler}>
+          <button className="text-amber-600 input" onClick={generateHandler}>
             Generate new Credentials
           </button>
         </form>
