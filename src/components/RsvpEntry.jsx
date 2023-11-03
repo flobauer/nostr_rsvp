@@ -21,8 +21,6 @@ function RsvpEntry({ message }) {
     (tag) => tag[0] === "joined_by"
   );
 
-  console.log(numberOfPlusOnes);
-
   return (
     <li
       className={`rounded-full bg-slate-100 flex items-center ${message?.content}-status p-1 pr-2`}>

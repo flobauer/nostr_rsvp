@@ -32,9 +32,10 @@ function Event() {
   // get the Event data
   useEffect(() => {
     getEvent(connectedRelays, eventId, setEvent).then((event) => {
-      // @todo: check if event is in eventList
-      const isInEventList = eventList.find((e) => e.id === event.id);
 
+      if(!event) return;
+
+      const isInEventList = eventList?.find((e) => e.id === event.id);
       if (!isInEventList) {
         setEvents([...eventList, event]);
       }
