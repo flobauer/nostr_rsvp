@@ -42,8 +42,8 @@ export default function Container() {
 
   return (
     <div className="w-full max-w-6xl">
-      <nav className="md:flex mt-4 gap-2 items-center">
-        <h1 className="font-mono font-bold text-lg">Ripidipi</h1>
+      <nav className="flex mt-4 gap-2 items-center">
+        <h1 className="font-mono font-bold text-lg pl-4">Ripidipi</h1>
         <DropDown events={events} setNostrOpen={setShowNostrSettings} />
       </nav>
 
