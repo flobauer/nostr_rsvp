@@ -123,6 +123,8 @@ export async function getEvent(relays, id, setEvent) {
   });
 
   setEvent(tempEvent);
+
+  return event;
 }
 
 export async function rsvpToEvent({
