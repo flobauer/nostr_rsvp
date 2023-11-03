@@ -78,13 +78,17 @@ function Event() {
 
   // rsvps + messages
   // @todo: filtering could be better
+  // @todo: only show the last RSVP of a user
+  // @todo: differentiate between yesses, maybes and nos
   // @todo: the timestamps of the event/messages/rsvps should probably be checked with the local timezone of user?
+  // @todo: get the last RSVP from the visitor/user and show it in the form.
   const RSVP_TAG = ["subject", "RSVP"];
 
   const rsvp = events.filter((event) =>
     event.tags.some((tag) => tag[0] === RSVP_TAG[0] && tag[1] === RSVP_TAG[1])
   );
 
+  // @todo: maybe mark your own messages?
   const messages = events.filter(
     (event) =>
       !event.tags.some(
