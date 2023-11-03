@@ -1,8 +1,13 @@
-# React + Vite
+# RSVPlease
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an experiment to check, if you can manage participants for events on the nostr protocol.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Just run `yarn` or `npm install` and afterwards `yarn dev`or `npm run dev` and you are good to go. As this application uses the nostr protocol, any url that works in development will also work in production.
+
+## Feature ideas
+
+- add reactions to messages
+- configure relays and allow private relays to enable more privacy
+- enable end date, description
