@@ -56,7 +56,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             className={classNames(
               "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
               "hover:bg-sky-800 hover:text-white",
-              myRsvp.content === "yes" ? "bg-blue-600 text-white" : ""
+              myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
             )}>
             Yes
           </button>
@@ -65,7 +65,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             className={classNames(
               "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
               "hover:bg-sky-800 hover:text-white",
-              myRsvp.content === "maybe" ? "bg-blue-600 text-white" : ""
+              myRsvp?.content === "maybe" ? "bg-blue-600 text-white" : ""
             )}>
             Maybe
           </button>
@@ -74,7 +74,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             className={classNames(
               "rounded-full border border-gray-200 py-1 px-4  transition ml-auto",
               "hover:bg-sky-800 hover:text-white",
-              myRsvp.content === "no" ? "bg-blue-600 text-white" : ""
+              myRsvp?.content === "no" ? "bg-blue-600 text-white" : ""
             )}>
             No
           </button>
