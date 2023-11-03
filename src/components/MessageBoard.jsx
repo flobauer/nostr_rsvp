@@ -25,6 +25,7 @@ function MessageBoard({ messages, messageHandler }) {
     <div className="bg-white rounded-2xl shadow-lg p-6 text-lg font-mono">
       <div className="overflow-y-auto h-64 mb-4">
         <h1 className="font-bold mb-4">💬 Message Board</h1>
+        <hr className="my-2" />
         {messages.map((message, index) => (
           <Message key={index} message={message} />
         ))}

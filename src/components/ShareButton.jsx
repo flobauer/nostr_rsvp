@@ -32,7 +32,7 @@ function ShareButton() {
   };
 
   return (
-    <div className="float-right">
+    <div className="float-right hidden md:block">
       {/* Bind our handler function to the onClick button property */}
       <button
         onClick={handleCopyClick}

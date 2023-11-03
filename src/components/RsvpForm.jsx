@@ -33,25 +33,27 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
       <form onSubmit={submitHandler} className="card">
         <ShareButton />
         <h1 className="font-bold">🗓️ {event.name}</h1>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm md:text-base">
           {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("HH:mm")}{" "}
           ({event.start?.format("dddd")})
         </p>
-        <hr className="my-4" />
-        <span className="block text-gray-500">📍{event.location}</span>
+        <hr className="my-2" />
+        <span className="block text-gray-500 text-sm md:text-base">
+          📍{event.location}
+        </span>
 
         <div className="md:grid grid-cols-3 mt-4 gap-2">
           <p className="py-1">Your name?</p>
           <input
             onChange={(e) => setUsername(e.target.value)}
             value={username}
-            className="input col-span-2"
+            className="input col-span-2 mb-2"
             required
           />
         </div>
         <div className="md:grid grid-cols-3 mt-2 gap-2">
           <p className="py-1">Are you coming by?</p>
-          <div className="col-span-2 flex gap-2">
+          <div className="col-span-2 flex gap-2 pb-2">
             <button
               name="yes"
               className={classNames(
@@ -81,7 +83,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             </button>
           </div>
         </div>
-        <div className="md:grid grid-cols-3 mt-2 gap-2">
+        <div className="md:grid grid-cols-3 my-2 gap-2">
           <p className="py-1">Is somebody joining you?</p>
           <input
             type="number"

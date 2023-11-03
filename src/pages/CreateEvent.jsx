@@ -53,21 +53,21 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="mt-16">
-      <h1 className="text-5xl font-bold px-4 mb-4 text-sky-700">
+    <div className="mt-8 md:mt-16">
+      <h1 className="text-3xl md:text-5xl font-bold px-4 mb-4 text-sky-700">
         Receive your <br />
         Event Confirmations <br />
         with a Breeze...
       </h1>
 
       <form
-        className="grid grid-cols-2 gap-2 font-mono card"
+        className="flex flex-col md:grid grid-cols-3 gap-2 font-mono card"
         onSubmit={submitHandler}>
         <label>Your Name:</label>
         <input
           onChange={(e) => setUsername(e.target.value)}
           value={username}
-          className="input"
+          className="input mb-2 col-span-2"
         />
         <label>Event Name:</label>
         <input
@@ -75,7 +75,7 @@ export default function CreateEvent() {
             setEvent((prev) => ({ ...prev, name: e.target.value }))
           }
           value={event.name}
-          className="input"
+          className="input mb-2 col-span-2"
         />
         {/* <label>Event Description:</label>
         <input
@@ -90,7 +90,7 @@ export default function CreateEvent() {
         <input
           type="datetime-local"
           onChange={(e) => handleDateChange(e, "start")}
-          className="input"
+          className="input mb-2 col-span-2"
         />
 
         {/* <label>Event End Date:</label>
@@ -106,9 +106,9 @@ export default function CreateEvent() {
             setEvent((prev) => ({ ...prev, location: e.target.value }))
           }
           value={event.location}
-          className="input"
+          className="input mb-2 col-span-2"
         />
-        <div>
+        <div className="col-span-2 ">
           <button className="text-left bg-sky-600 text-white input">
             Create Event
           </button>
