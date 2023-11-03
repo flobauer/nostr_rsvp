@@ -57,11 +57,11 @@ export async function createEvent({ data, publish, publicKey, privateKey }) {
       ["start", `${dayjs(data.start).unix()}`],
       ["end", `${dayjs(data.end).unix()}`],
 
-      ["start_tzid", "Europe/Berlin"],
-      ["end_tzid", "Europe/Berlin"],
+      ["start_tzid", "Europe/Berlin"], // I am uncertain what that actually does
+      ["end_tzid", "Europe/Berlin"], // I am uncertain what that actually does
 
       // Location
-      ["location", data.location],
+      ["location", data.location], // @todo: we could add geocache here
       // ["g", "<geohash>"],
 
       // Add Admin as participant
@@ -134,7 +134,10 @@ export async function rsvpToEvent({
 }) {
   const tags = [];
 
-  // we use subject tag for RSVP
+  // @todo: where do we save the +1 of the event
+  // @todo: how do we save if the person is coming or not, ist it in content enough?
+
+  // we use subject tag for RSVP (@todo - check that, feels wrong)
   tags.push(["subject", "RSVP"]);
 
   // we add the channel/event
@@ -174,7 +177,7 @@ export async function postMessageToEvent({
   if (respondToMessageId) {
     tags.push(["e", respondToMessageId, "", "reply"]);
   }
-  // we check if a person is given
+  // we check if a person is given (could be answers to messages then)
   if (respondToPersonId) {
     tags.push(["p", respondToPersonId, ""]);
   }

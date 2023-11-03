@@ -8,15 +8,18 @@ function MessageBoard({ messages, messageHandler }) {
 
   const { username, setUsername } = useOutletContext();
 
-  const handleNewMessageChange = (event) => {
-    setNewMessage(event.target.value);
+  const handleNewMessageChange = (e) => {
+    setNewMessage(e.target.value);
   };
 
-  const handleNewMessage = (event) => {
-    event.preventDefault();
+  const handleNewMessage = (e) => {
+    e.preventDefault();
     messageHandler(newMessage);
     setNewMessage("");
   };
+
+  // @todo: we could add a "loading" state here (suspense)
+  // @todo: maybe do answer to messages, we have that functionality in messagehandler
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 text-lg font-mono">

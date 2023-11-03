@@ -5,6 +5,7 @@ import Container from "./Container";
 import CreateEvent from "pages/CreateEvent";
 import Event from "pages/Event";
 
+// this might make sense to make configurable
 const relayUrls = ["wss://nostr-pub.wellorder.net"];
 
 function App() {

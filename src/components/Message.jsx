@@ -8,6 +8,8 @@ function Message({ message }) {
     pubkey: message.pubkey,
   });
 
+  // @todo: reactions to messages would be cool i think
+
   return (
     <div className="border-b border-gray-200 py-2">
       <div className="flex items-end">

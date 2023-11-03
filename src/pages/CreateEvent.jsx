@@ -4,7 +4,6 @@ import { useNostr } from "nostr-react";
 import { createEvent, updateUserProfileIfNameChanged } from "helpers/actions";
 
 export default function CreateEvent() {
-  // function to create an event
   const { publish } = useNostr();
 
   const { setEvents, user, setUser, username, setUsername } =
@@ -21,6 +20,7 @@ export default function CreateEvent() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // make sure that user profile is up to date
     updateUserProfileIfNameChanged({
       name: username,
       user,
@@ -28,6 +28,7 @@ export default function CreateEvent() {
       publish,
     });
 
+    // we add the event on nostr
     const createdEvent = await createEvent({
       data: event,
       publish,
@@ -38,6 +39,7 @@ export default function CreateEvent() {
     setEvents((prev) => [...prev, createdEvent]);
   };
 
+  // only update the react date when its valid
   const handleDateChange = (e, type) => {
     if (!e.target["validity"].valid) return;
 

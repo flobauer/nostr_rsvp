@@ -15,21 +15,27 @@ import {
 function Event() {
   const { eventId } = useParams();
 
+  // get user and username from context
   const { user, setUser, username } = useOutletContext();
+  const { connectedRelays, publish } = useNostr();
 
   const [event, setEvent] = useState({});
 
-  const { connectedRelays, publish } = useNostr();
-
   const { events } = useNostrEvents({
     filter: {
-      since: 0, // all channel creation events
+      since: 0, // all channel/event message events (rsvp + messages)
       kinds: [42],
       "#e": [eventId],
     },
   });
 
-  const rsvpHandler = async () => {
+  // get the Event data
+  useEffect(() => {
+    getEvent(connectedRelays, eventId, setEvent);
+  }, [connectedRelays, eventId]);
+
+  // the RSVP action
+  const rsvpHandler = async (rsvp) => {
     // make sure user has a profile on nostr
     updateUserProfileIfNameChanged({
       name: username,
@@ -38,8 +44,11 @@ function Event() {
       publish,
     });
 
+    // send an rsvp to the event
+    // @todo: we should only do this, if the user hasn't sent an rsvp yet
+    // or maybe we should allow it and see it as an updated rsvp (change from yes to no f.e.)
     await rsvpToEvent({
-      rsvp: "Yes",
+      rsvp: rsvp.attending,
       publish,
       publicKey: user.publicKey,
       privateKey: user.privateKey,
@@ -47,7 +56,9 @@ function Event() {
     });
   };
 
+  // the comment action
   const messageHandler = async (message) => {
+    // make sure the user has a profile on nostr
     updateUserProfileIfNameChanged({
       name: username,
       user,
@@ -55,6 +66,7 @@ function Event() {
       publish,
     });
 
+    // send message to the message board
     await postMessageToEvent({
       content: message,
       publish,
@@ -64,13 +76,21 @@ function Event() {
     });
   };
 
-  useEffect(() => {
-    getEvent(connectedRelays, eventId, setEvent);
-  }, [connectedRelays, eventId]);
+  // rsvps + messages
+  // @todo: filtering could be better
+  // @todo: the timestamps of the event/messages/rsvps should probably be checked with the local timezone of user?
+  const RSVP_TAG = ["subject", "RSVP"];
 
-  // rsvps
-  const rsvp = events.filter((event) => event.content === "Yes");
-  const messages = events.filter((event) => event.content !== "Yes");
+  const rsvp = events.filter((event) =>
+    event.tags.some((tag) => tag[0] === RSVP_TAG[0] && tag[1] === RSVP_TAG[1])
+  );
+
+  const messages = events.filter(
+    (event) =>
+      !event.tags.some(
+        (tag) => tag[0] === RSVP_TAG[0] && tag[1] === RSVP_TAG[1]
+      )
+  );
 
   return (
     <div className="flex flex-col gap-10">
@@ -81,7 +101,7 @@ function Event() {
         setUser={setUser}
       />
 
-      <ul className="flex">
+      <ul className="flex flex-wrap gap-2">
         {rsvp.map((rsvp) => (
           <Entry key={rsvp.id} message={rsvp} />
         ))}
@@ -97,13 +117,15 @@ function Event() {
   );
 }
 
+// the entries for rsvps, show who is coming
+// @todo: separate file is better
 function Entry({ message }) {
   // get profile data
   const { data: userData } = useProfile({
     pubkey: message.pubkey,
   });
   return (
-    <li className="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center border border-blue-900">
+    <li className="w-16 h-16 text-xs rounded-full bg-slate-200 flex items-center justify-center border border-blue-900">
       {userData?.name}
     </li>
   );

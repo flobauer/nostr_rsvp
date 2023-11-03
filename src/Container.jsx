@@ -6,13 +6,18 @@ import { getPublicKey, generatePrivateKey } from "nostr-tools";
 import { useLocalStorage } from "helpers/hooks";
 
 export default function Container() {
-  // we store the events the user is subscribed to in local storage
+  // we store user info + events in local storage
   const [events, setEvents] = useLocalStorage("events", []);
   const [user, setUser] = useLocalStorage("user", null);
   const [username, setUsername] = useLocalStorage("username", "");
 
+  // if somebody wants to use their nostr user, we give the possibility
   const [showNostrSettings, setShowNostrSettings] = useState(false);
 
+  // @todo:
+  // when a user visits an event, we should add it to their list of events
+
+  // if there is no user, we automatically generate a new one
   useEffect(() => {
     if (!user || user.privateKey === "" || user.publicKey === "") {
       const privateKey = generatePrivateKey();

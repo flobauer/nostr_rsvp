@@ -11,6 +11,8 @@ function RsvpForm({ event, rsvpHandler }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    rsvp.attending = e.nativeEvent.submitter.name;
     rsvpHandler(rsvp);
   };
 
@@ -48,13 +50,19 @@ function RsvpForm({ event, rsvpHandler }) {
         </div>
         <div className="md:flex mt-2 gap-2">
           <p className="py-1">Are you coming by?</p>
-          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition ml-auto">
+          <button
+            name="yes"
+            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition ml-auto">
             Yes
           </button>
-          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
+          <button
+            name="maybe"
+            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
             Maybe
           </button>
-          <button className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
+          <button
+            name="no"
+            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
             No
           </button>
         </div>
