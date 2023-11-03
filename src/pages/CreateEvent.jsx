@@ -121,6 +121,8 @@ export default function CreateEvent() {
           rel="noreferrer">
           nostr.com
         </a>
+        . That said, the event data is not private but public so be careful with
+        the information you share.
       </p>
     </div>
   );
