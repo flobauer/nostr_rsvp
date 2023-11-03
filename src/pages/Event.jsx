@@ -21,6 +21,7 @@ function Event() {
 
   const [event, setEvent] = useState({});
 
+  // @todo: currently events is not rereloaded when the eventId changes
   const { events } = useNostrEvents({
     filter: {
       since: 0, // all channel/event message events (rsvp + messages)
