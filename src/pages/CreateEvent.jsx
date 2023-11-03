@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useNostr } from "nostr-react";
 import { createEvent, updateUserProfileIfNameChanged } from "helpers/actions";
 
 export default function CreateEvent() {
   const { publish } = useNostr();
+  const navigate = useNavigate();
 
   const { setEvents, user, setUser, username, setUsername } =
     useOutletContext();
@@ -37,6 +38,8 @@ export default function CreateEvent() {
     });
 
     setEvents((prev) => [...prev, createdEvent]);
+
+    navigate(`/${createdEvent.id}`);
   };
 
   // only update the react date when its valid
@@ -52,7 +55,7 @@ export default function CreateEvent() {
   return (
     <form className="grid grid-cols-2 gap-2" onSubmit={submitHandler}>
       <label>Your Name:</label>
-      <input onChange={(e) => setUsername(e.target.value)} value={event.name} />
+      <input onChange={(e) => setUsername(e.target.value)} value={username} />
       <label>Event Name:</label>
       <input
         onChange={(e) =>
