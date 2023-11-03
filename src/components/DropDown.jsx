@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { classNames } from "helpers/util";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
-function DropDown({ events, setNostrOpen }) {
+function DropDown({ events, setNostrOpen, removeEventHandler }) {
   return (
     <Menu
       as="div"
@@ -45,14 +46,21 @@ function DropDown({ events, setNostrOpen }) {
             {events.map((event) => (
               <Menu.Item key={event.id}>
                 {({ active }) => (
-                  <Link
-                    to={`/${event.id}`}
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block px-4 py-2"
-                    )}>
-                    🗓️ {JSON.parse(event.content).name}
-                  </Link>
+                  <div className="flex">
+                    <Link
+                      to={`/${event.id}`}
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "flex-1 px-4 py-2"
+                      )}>
+                      🗓️ {JSON.parse(event.content).name}
+                    </Link>
+                    <button
+                      onClick={(e) => removeEventHandler(e, event)}
+                      className="text-red-500">
+                      <XMarkIcon className="h-6 w-6 mr-1 ml-auto" />
+                    </button>
+                  </div>
                 )}
               </Menu.Item>
             ))}
@@ -84,6 +92,7 @@ DropDown.propTypes = {
     })
   ).isRequired,
   setNostrOpen: PropTypes.func,
+  removeEventHandler: PropTypes.func,
 };
 
 export default DropDown;

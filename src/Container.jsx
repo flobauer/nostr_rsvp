@@ -39,6 +39,14 @@ export default function Container() {
     setShowNostrSettings(false);
   };
 
+  const removeEventHandler = (e, event) => {
+    e.preventDefault();
+
+    if (!confirm("Are you sure you want to remove this event?")) return;
+
+    setEvents((prev) => prev.filter((ee) => ee.id !== event.id));
+  };
+
   const generateHandler = (e) => {
     e.preventDefault();
 
@@ -58,7 +66,11 @@ export default function Container() {
     <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
         <h1 className="font-mono font-bold text-lg pl-4">Ripidipi</h1>
-        <DropDown events={events} setNostrOpen={setShowNostrSettings} />
+        <DropDown
+          events={events}
+          setNostrOpen={setShowNostrSettings}
+          removeEventHandler={removeEventHandler}
+        />
       </nav>
 
       <main className="col-span-2">
