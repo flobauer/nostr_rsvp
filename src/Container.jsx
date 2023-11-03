@@ -65,7 +65,7 @@ export default function Container() {
   return (
     <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
-        <h1 className="font-mono font-bold text-lg pl-4">Ripidipi</h1>
+        <h1 className="font-mono font-bold text-lg pl-4">RSVPlease</h1>
         <DropDown
           events={events}
           setNostrOpen={setShowNostrSettings}
@@ -102,21 +102,25 @@ export default function Container() {
             That said, it is also transparent, which means that this event and
             everybody joining it is somewhere in the protocol. If you want to
             learn more about Nostr, check out{" "}
-            <a href="https://nostr.org" className="text-purple-800 underline">
-              nostr.org
+            <a
+              href="https://nostr.com"
+              className="text-purple-800 underline"
+              target="_blank"
+              rel="noreferrer">
+              nostr.com
             </a>
             .
           </p>
           <label className="font-bold font-mono">Public Key</label>
           <input
             className="input"
-            value={user.publicKey}
+            value={user?.publicKey}
             onChange={(e) => setUser({ ...user, publicKey: e.target.value })}
           />
           <label className="font-bold mt-4 font-mono">Private Key</label>
           <input
             className="input"
-            value={user.privateKey}
+            value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
           <button className="bg-blue-900 input text-white font-mono">
