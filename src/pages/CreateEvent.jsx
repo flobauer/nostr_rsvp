@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useNostr } from "nostr-react";
-import { createEvent, updateUserProfile } from "./helpers/actions";
-import { useLocalStorage } from "./helpers/hooks";
+import { createEvent, updateUserProfileIfNameChanged } from "helpers/actions";
+import { useLocalStorage } from "helpers/hooks";
 
 export default function CreateEvent() {
   // function to create an event
   const { publish } = useNostr();
   const [user, setUser] = useLocalStorage("user", {});
+  const [username, setUsername] = useLocalStorage("username", user.name || "");
 
   // we store the events the user is subscribed to in local storage
   const { setEvents } = useOutletContext();
@@ -23,8 +24,10 @@ export default function CreateEvent() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    await updateUserProfile({
+    updateUserProfileIfNameChanged({
+      name: username,
       user,
+      setUser,
       publish,
     });
 
@@ -49,6 +52,8 @@ export default function CreateEvent() {
 
   return (
     <form className="grid grid-cols-2 gap-2" onSubmit={submitHandler}>
+      <label>Your Name:</label>
+      <input onChange={(e) => setUsername(e.target.value)} value={event.name} />
       <label>Event Name:</label>
       <input
         onChange={(e) =>

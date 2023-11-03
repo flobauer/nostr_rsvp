@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useProfile } from "nostr-react";
-import dayjs from "dayjs";
+import PropTypes from "prop-types";
+import Message from "./Message";
+import { useLocalStorage } from "helpers/hooks";
 
-function MessageBoard({ messages, messageHandler, user, setUser }) {
+function MessageBoard({ messages, messageHandler }) {
   const [newMessage, setNewMessage] = useState("");
+  const [username, setUsername] = useLocalStorage("username", "");
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value);
@@ -11,7 +13,6 @@ function MessageBoard({ messages, messageHandler, user, setUser }) {
 
   const handleNewMessage = (event) => {
     event.preventDefault();
-
     messageHandler(newMessage);
     setNewMessage("");
   };
@@ -21,17 +22,15 @@ function MessageBoard({ messages, messageHandler, user, setUser }) {
       <div className="overflow-y-auto h-64 mb-4">
         <h1 className="font-bold mb-4">💬 Message Board</h1>
         {messages.map((message, index) => (
-          <Entry key={index} message={message} />
+          <Message key={index} message={message} />
         ))}
       </div>
       <div className="border-t border-gray-200 my-4"></div>
       <form className="flex flex-col gap-2" onSubmit={handleNewMessage}>
         <input
           type="text"
-          value={user.name}
-          onChange={(e) =>
-            setUser((prev) => ({ ...prev, name: e.target.value }))
-          }
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-1/3 rounded-full border border-gray-200 py-1 px-4 mb-2"
           placeholder="Name:"
           required
@@ -56,24 +55,15 @@ function MessageBoard({ messages, messageHandler, user, setUser }) {
   );
 }
 
-function Entry({ message }) {
-  // get profile data
-  const { data: userData } = useProfile({
-    pubkey: message.pubkey,
-  });
-
-  console.log(userData);
-  return (
-    <div className="border-b border-gray-200 py-2">
-      <div className="flex items-end">
-        <strong>{userData?.name}</strong>
-        <span className="text-gray-500 text-sm ml-auto">
-          {dayjs.unix(message.created_at).format("DD.MM.YYYY HH:mm")}
-        </span>
-      </div>
-      <p>{message?.content}</p>
-    </div>
-  );
-}
+MessageBoard.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string,
+      created: PropTypes.string,
+      pubkey: PropTypes.string,
+    })
+  ),
+  messageHandler: PropTypes.func,
+};
 
 export default MessageBoard;

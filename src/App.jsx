@@ -1,10 +1,9 @@
-import React from "react";
 import { NostrProvider } from "nostr-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Event from "./Event";
 
 import Container from "./Container";
-import CreateEvent from "./CreateEvent";
+import CreateEvent from "pages/CreateEvent";
+import Event from "pages/Event";
 
 const relayUrls = ["wss://nostr-pub.wellorder.net"];
 

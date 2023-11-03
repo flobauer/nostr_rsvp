@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
+import { useLocalStorage } from "helpers/hooks";
 
-function RsvpForm({ event, rsvpHandler, user, setUser }) {
+function RsvpForm({ event, rsvpHandler }) {
+  const [username, setUsername] = useLocalStorage("username", "");
   const [rsvp, setRsvp] = useState({
     guests: 0,
     attending: null,
@@ -11,10 +13,6 @@ function RsvpForm({ event, rsvpHandler, user, setUser }) {
     e.preventDefault();
     rsvpHandler(rsvp);
   };
-
-  useEffect(() => {
-    setRsvp((prev) => ({ ...prev, name: user.name }));
-  }, [user]);
 
   return (
     <div className="md:w-1/2 md:flex gap-4">
@@ -33,10 +31,8 @@ function RsvpForm({ event, rsvpHandler, user, setUser }) {
         <div className="md:flex mt-4 gap-2">
           <p className="py-1">Your name?</p>
           <input
-            onChange={(e) =>
-              setUser((prev) => ({ ...prev, name: e.target.value }))
-            }
-            value={user.name}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
             className="rounded-full border border-gray-200 py-1 px-4 ml-auto"
             required
           />
@@ -72,11 +68,6 @@ RsvpForm.propTypes = {
     name: PropTypes.string,
     start: PropTypes.object,
     location: PropTypes.string,
-  }),
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    publicKey: PropTypes.string,
-    privateKey: PropTypes.string,
   }),
   rsvpHandler: PropTypes.func,
 };

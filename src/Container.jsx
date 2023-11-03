@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 
 import { getPublicKey, generatePrivateKey } from "nostr-tools";
 
-import { useLocalStorage } from "./helpers/hooks";
+import { useLocalStorage } from "helpers/hooks";
 
 export default function Container() {
   // we store the events the user is subscribed to in local storage

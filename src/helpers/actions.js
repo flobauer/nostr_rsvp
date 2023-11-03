@@ -6,7 +6,21 @@ import { v4 as uuidv4 } from "uuid";
 
 import { getEventHash, getSignature } from "nostr-tools";
 
-export async function updateUserProfile({ user, publish }) {
+export async function updateUserProfileIfNameChanged({
+  name,
+  user,
+  setUser,
+  publish,
+}) {
+  // if nothing changed, we do not need to update
+  if (name === user.name) {
+    return;
+  }
+
+  // name changed, we update the user
+  setUser({ ...user, name });
+
+  // name changed, we update the users profile
   const event = {
     content: JSON.stringify({
       name: user.name,
@@ -26,6 +40,9 @@ export async function updateUserProfile({ user, publish }) {
 }
 
 export async function createEvent({ data, publish, publicKey, privateKey }) {
+  // there is a NIP draft for calendar entries that we could use
+  // https://github.com/nostr-protocol/nips/blob/master/52.md
+  // for content we use the kind 40 (channels) and their recommended structure.
   // we use channel format for now
   const event = {
     content: JSON.stringify({
@@ -84,9 +101,7 @@ export async function getEvent(relays, id, setEvent) {
     return;
   }
 
-  console.log(event);
   const parts = JSON.parse(event.content);
-  console.log(parts);
   const tempEvent = { name: parts.name, description: parts.about };
 
   event.tags.forEach((tag) => {
