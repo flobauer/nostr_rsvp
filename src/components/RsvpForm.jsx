@@ -17,15 +17,15 @@ function RsvpForm({ event, rsvpHandler }) {
   };
 
   return (
-    <div className="md:w-1/2 md:flex gap-4">
+    <div className="md:flex gap-4">
       <div className="text-3xl py-4">🗓️</div>
       <form
         onSubmit={submitHandler}
         className="flex-1 bg-white rounded-2xl shadow-lg px-6 py-4 text-lg font-mono">
         <h1 className="font-bold">{event.name}</h1>
         <p className="text-gray-500">
-          {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("H:m")} (
-          {event.start?.format("dddd")})
+          {event.start?.format("DD.MM.YYYY")} ab {event.start?.format("HH:mm")}{" "}
+          ({event.start?.format("dddd")})
         </p>
         <hr className="my-4" />
         <span className="block text-gray-500">📍{event.location}</span>
