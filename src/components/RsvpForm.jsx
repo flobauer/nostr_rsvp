@@ -33,7 +33,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
           <input
             onChange={(e) => setUsername(e.target.value)}
             value={username}
-            className="rounded-full border border-gray-200 py-1 px-4 ml-auto"
+            className="input"
             required
           />
         </div>
@@ -43,7 +43,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
             <button
               name="yes"
               className={classNames(
-                "rounded-full border border-gray-200 py-1 px-4 mx-3 transition ml-auto",
+                "input",
                 "hover:bg-sky-800 hover:text-white",
                 myRsvp?.content === "yes" ? "bg-blue-600 text-white" : ""
               )}>
@@ -73,7 +73,7 @@ function RsvpForm({ event, myRsvp, rsvpHandler }) {
           <p className="py-1">Is somebody joining you?</p>
           <input
             type="number"
-            className="rounded-full border border-gray-200 py-1 px-4 ml-auto"
+            className="input"
             onChange={(e) => setRsvp({ ...rsvp, guests: e.target.value })}
             value={rsvp.guests}
           />

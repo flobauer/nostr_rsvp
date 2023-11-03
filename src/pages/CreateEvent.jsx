@@ -53,15 +53,16 @@ export default function CreateEvent() {
   };
 
   return (
-    <form className="grid grid-cols-2 gap-2" onSubmit={submitHandler}>
+    <form className="grid grid-cols-2 gap-2 font-mono" onSubmit={submitHandler}>
       <label>Your Name:</label>
-      <input onChange={(e) => setUsername(e.target.value)} value={username} />
+      <input onChange={(e) => setUsername(e.target.value)} value={username} className="input" />
       <label>Event Name:</label>
       <input
         onChange={(e) =>
           setEvent((prev) => ({ ...prev, name: e.target.value }))
         }
         value={event.name}
+        className="input"
       />
       <label>Event Description:</label>
       <input
@@ -69,18 +70,21 @@ export default function CreateEvent() {
           setEvent((prev) => ({ ...prev, description: e.target.value }))
         }
         value={event.description}
+        className="input"
       />
 
       <label>Event Start Date:</label>
       <input
         type="datetime-local"
         onChange={(e) => handleDateChange(e, "start")}
+        className="input"
       />
 
       <label>Event End Date:</label>
       <input
         type="datetime-local"
         onChange={(e) => handleDateChange(e, "end")}
+        className="input"
       />
 
       <label>Event Location:</label>
@@ -89,6 +93,7 @@ export default function CreateEvent() {
           setEvent((prev) => ({ ...prev, location: e.target.value }))
         }
         value={event.location}
+        className="input"
       />
       <div>
         <button className="text-left bg-emerald-800 text-white p-1 rounded">
