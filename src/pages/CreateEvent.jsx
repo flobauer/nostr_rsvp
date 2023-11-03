@@ -2,16 +2,13 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useNostr } from "nostr-react";
 import { createEvent, updateUserProfileIfNameChanged } from "helpers/actions";
-import { useLocalStorage } from "helpers/hooks";
 
 export default function CreateEvent() {
   // function to create an event
   const { publish } = useNostr();
-  const [user, setUser] = useLocalStorage("user", {});
-  const [username, setUsername] = useLocalStorage("username", user.name || "");
 
-  // we store the events the user is subscribed to in local storage
-  const { setEvents } = useOutletContext();
+  const { setEvents, user, setUser, username, setUsername } =
+    useOutletContext();
 
   const [event, setEvent] = useState({
     name: "",

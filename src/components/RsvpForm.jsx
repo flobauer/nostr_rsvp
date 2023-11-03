@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useLocalStorage } from "helpers/hooks";
 
 function RsvpForm({ event, rsvpHandler }) {
-  const [username, setUsername] = useLocalStorage("username", "");
+  const { username, setUsername } = useOutletContext();
   const [rsvp, setRsvp] = useState({
     guests: 0,
     attending: null,

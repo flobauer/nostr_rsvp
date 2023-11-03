@@ -9,6 +9,8 @@ export default function Container() {
   // we store the events the user is subscribed to in local storage
   const [events, setEvents] = useLocalStorage("events", []);
   const [user, setUser] = useLocalStorage("user", null);
+  const [username, setUsername] = useLocalStorage("username", "");
+
   const [showNostrSettings, setShowNostrSettings] = useState(false);
 
   useEffect(() => {
@@ -17,12 +19,12 @@ export default function Container() {
       const publicKey = getPublicKey(privateKey);
 
       setUser({
-        name: "",
+        name: username,
         publicKey,
         privateKey,
       });
     }
-  }, [user]);
+  }, [user, username, setUser]);
 
   return (
     <div className="grid grid-cols-3 w-full max-w-6xl">
@@ -66,7 +68,16 @@ export default function Container() {
 
       <main className="col-span-2">
         <div className="">
-          <Outlet context={{ events, setEvents }} />
+          <Outlet
+            context={{
+              events,
+              setEvents,
+              user,
+              setUser,
+              username,
+              setUsername,
+            }}
+          />
         </div>
       </main>
     </div>

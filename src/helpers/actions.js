@@ -17,13 +17,10 @@ export async function updateUserProfileIfNameChanged({
     return;
   }
 
-  // name changed, we update the user
-  setUser({ ...user, name });
-
   // name changed, we update the users profile
   const event = {
     content: JSON.stringify({
-      name: user.name,
+      name,
     }),
     kind: 0,
     tags: [],
@@ -35,6 +32,9 @@ export async function updateUserProfileIfNameChanged({
   event.sig = getSignature(event, user.privateKey);
 
   publish(event);
+
+  // name changed, we update the user
+  setUser((prev) => ({ ...prev, name }));
 
   return event;
 }

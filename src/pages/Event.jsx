@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useNostr, useNostrEvents, useProfile } from "nostr-react";
 import { useParams } from "react-router-dom";
@@ -10,13 +11,11 @@ import {
   postMessageToEvent,
   updateUserProfileIfNameChanged,
 } from "helpers/actions";
-import { useLocalStorage } from "helpers/hooks";
 
 function Event() {
   const { eventId } = useParams();
 
-  const [user, setUser] = useLocalStorage("user", {});
-  const [username] = useLocalStorage("username", user.name || "");
+  const { user, setUser, username } = useOutletContext();
 
   const [event, setEvent] = useState({});
 

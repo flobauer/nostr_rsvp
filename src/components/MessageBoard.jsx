@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import Message from "./Message";
-import { useLocalStorage } from "helpers/hooks";
 
 function MessageBoard({ messages, messageHandler }) {
   const [newMessage, setNewMessage] = useState("");
-  const [username, setUsername] = useLocalStorage("username", "");
+
+  const { username, setUsername } = useOutletContext();
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value);
