@@ -22,7 +22,7 @@ function MessageBoard({ messages, messageHandler }) {
   // @todo: maybe do answer to messages, we have that functionality in messagehandler
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 text-lg">
+    <div className="bg-white rounded-2xl shadow-lg p-6 text-lg font-mono">
       <div className="overflow-y-auto h-64 mb-4">
         <h1 className="font-bold mb-4">💬 Message Board</h1>
         <hr className="my-2" />
@@ -51,7 +51,7 @@ function MessageBoard({ messages, messageHandler }) {
           />
           <button
             type="submit"
-            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-amber-800 hover:text-white transition">
+            className="rounded-full border border-gray-200 py-1 px-4 hover:bg-sky-800 hover:text-white transition">
             Send
           </button>
         </div>

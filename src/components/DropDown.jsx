@@ -8,7 +8,9 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 
 function DropDown({ events, setNostrOpen, removeEventHandler }) {
   return (
-    <Menu as="div" className="relative inline-block text-left ml-auto">
+    <Menu
+      as="div"
+      className="relative inline-block text-left ml-auto font-mono">
       <div>
         <Menu.Button className="inline-flex w-full justify-center items-center gap-x-1.5 px-3 py-2 font-semibold text-gray-900 ">
           RSVP Settings

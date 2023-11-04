@@ -56,7 +56,7 @@ export default function CreateEvent() {
     <div className="mt-8 md:mt-16">
       <h1 className="text-3xl md:text-5xl font-bold px-4 mb-4 text-amber-600">
         Surprise Visitors? <br />
-        Only if They're Bringing Pizza
+        Only if They're Bringing Pizza!
       </h1>
       <p className="text-lg px-5 mb-4 text-gray-700">
         Receive your Event Confirmations with a Breeze...

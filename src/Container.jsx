@@ -65,7 +65,7 @@ export default function Container() {
   return (
     <div className="w-full max-w-5xl">
       <nav className="flex mt-4 gap-2 items-center">
-        <h1 className="font-bold text-lg pl-4 flex items-center text-amber-600">
+        <h1 className="font-bold font-mono text-lg pl-4 flex items-center text-amber-600">
           <img src="/pizza-icon.svg" className="w-12 h-12" />
           RSVPlease
         </h1>
@@ -133,7 +133,9 @@ export default function Container() {
         </p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
-        <form className="flex flex-col gap-2" onSubmit={updateProfileHandler}>
+        <form
+          className="flex flex-col gap-2  font-mono"
+          onSubmit={updateProfileHandler}>
           <h1 className="text-lg font-bold">Nostr Settings</h1>
           <p className="text-gray-800 text-sm font-sans">
             The Nostr protocol, short for "Notes and Other Stuff Transmitted by
