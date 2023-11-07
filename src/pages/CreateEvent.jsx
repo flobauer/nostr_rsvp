@@ -74,6 +74,7 @@ export default function CreateEvent() {
           value={username}
           className="input mb-2 col-span-2"
           placeholder="John Doe"
+          required
         />
         <label>Event Name:</label>
         <input
@@ -83,6 +84,7 @@ export default function CreateEvent() {
           value={event.name}
           placeholder="My Birthday Party"
           className="input mb-2 col-span-2"
+          required
         />
         {/* <label>Event Description:</label>
         <input
@@ -98,6 +100,7 @@ export default function CreateEvent() {
           type="datetime-local"
           onChange={(e) => handleDateChange(e, "start")}
           className="input mb-2 col-span-2"
+          required
         />
 
         {/* <label>Event End Date:</label>
@@ -115,6 +118,7 @@ export default function CreateEvent() {
           value={event.location}
           className="input mb-2 col-span-2"
           placeholder="My House"
+          required
         />
         <div className="col-span-2 ">
           <button className="text-left bg-amber-600 text-white input">
