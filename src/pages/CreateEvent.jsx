@@ -53,15 +53,18 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="mt-8 md:mt-16">
-      <h1 className="text-3xl md:text-5xl font-bold px-4 mb-4 text-amber-600">
+    <div className="mt-8 md:mt-16 mb-8 md:mb-16 border-b">
+      <h1 className="text-3xl md:text-5xl font-serif font-bold px-4 mb-4 text-sky-700">
         Surprise Visitors? <br />
         Only if They're Bringing Pizza!
       </h1>
-      <p className="text-lg px-5 mb-4 text-gray-700">
-        Receive your Event Confirmations with a Breeze...
+      <p className="text-lg px-5 mb-4 text-gray-700 max-w-xl">
+        A simple RSVP Solution for receiving your event confirmations and better
+        plan who is coming.
       </p>
-
+      <strong className="font-serif text-xl text-gray-700 px-4 pt-4 pb-2 block">
+        Create your first Event:
+      </strong>
       <form
         className="flex flex-col md:grid grid-cols-3 gap-2 card"
         onSubmit={submitHandler}>

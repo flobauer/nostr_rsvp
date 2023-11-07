@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { getPublicKey, generatePrivateKey } from "nostr-tools";
 
@@ -7,12 +7,16 @@ import { useLocalStorage } from "helpers/hooks";
 
 import DropDown from "./components/DropDown";
 import Modal from "./components/Modal";
+import Features from "components/Features";
 
 export default function Container() {
   // we store user info + events in local storage
   const [events, setEvents] = useLocalStorage("events", []);
   const [user, setUser] = useLocalStorage("user", null);
   const [username, setUsername] = useLocalStorage("username", "");
+
+  // get location
+  const location = useLocation();
 
   // if somebody wants to use their nostr user, we give the possibility
   const [showNostrSettings, setShowNostrSettings] = useState(false);
@@ -63,12 +67,14 @@ export default function Container() {
   };
 
   return (
-    <div className="w-full max-w-5xl">
-      <nav className="flex mt-4 gap-2 items-center">
-        <h1 className="font-bold font-mono text-lg pl-4 flex items-center text-amber-600">
-          <img src="/pizza-icon.svg" className="w-12 h-12" />
+    <div className="w-full">
+      <nav className="max-w-5xl mx-auto flex mt-4 gap-2 items-center">
+        <Link
+          className="font-bold font-mono text-lg pl-4 flex items-center text-gray-800"
+          to="/">
+          <img src="/pizza2.png" className="w-12 h-12" />
           RSVPlease
-        </h1>
+        </Link>
         <DropDown
           events={events}
           setNostrOpen={setShowNostrSettings}
@@ -76,7 +82,7 @@ export default function Container() {
         />
       </nav>
 
-      <main className="col-span-2">
+      <main className="max-w-5xl mx-auto">
         <div className="">
           <Outlet
             context={{
@@ -90,7 +96,9 @@ export default function Container() {
           />
         </div>
       </main>
-      <footer className="pb-16">
+
+      {location.pathname === "/" && <Features />}
+      <footer className="pb-16 max-w-5xl mx-auto">
         <p className="italic text-gray-600 px-4 pt-4">
           This application runs on the nostr protocol, which is a decentralized
           and cencorship resistant protocol on the internet. If you want to
@@ -128,7 +136,7 @@ export default function Container() {
             rel="noreferrer"
             className="underline"
             href="https://github.com/flobauer/nostr_rsvp">
-            See Source
+            See Source from Github
           </a>
         </p>
       </footer>
@@ -170,10 +178,10 @@ export default function Container() {
             value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
-          <button className="bg-amber-600 input text-white">
+          <button className="bg-sky-600 input text-white">
             Save Nostr Credentials
           </button>
-          <button className="text-amber-600 input" onClick={generateHandler}>
+          <button className="text-sky-600 input" onClick={generateHandler}>
             Generate new Credentials
           </button>
         </form>

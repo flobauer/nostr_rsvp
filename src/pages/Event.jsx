@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import MessageBoard from "components/MessageBoard";
 import RsvpForm from "components/RsvpForm";
 import RsvpEntries from "components/RsvpEntries";
+import LoadingEvent from "components/LoadingEvent";
 import {
   getEvent,
   rsvpToEvent,
@@ -16,7 +17,13 @@ function Event() {
   const { eventId } = useParams();
 
   // get user and username from context
-  const { user, setUser, username, events: eventList, setEvents } = useOutletContext();
+  const {
+    user,
+    setUser,
+    username,
+    events: eventList,
+    setEvents,
+  } = useOutletContext();
   const { connectedRelays, publish } = useNostr();
 
   const [event, setEvent] = useState({});
@@ -32,8 +39,7 @@ function Event() {
   // get the Event data
   useEffect(() => {
     getEvent(connectedRelays, eventId, setEvent).then((event) => {
-
-      if(!event) return;
+      if (!event) return;
 
       const isInEventList = eventList?.find((e) => e.id === event.id);
       if (!isInEventList) {
@@ -123,6 +129,9 @@ function Event() {
     .filter((event) =>
       event.tags.some((tag) => tag[0] === "e" && tag[1] === eventId)
     );
+  if (!event || !event.name) {
+    return <LoadingEvent />;
+  }
 
   return (
     <div className="flex flex-col gap-10">
