@@ -39,10 +39,10 @@ export default function Example() {
                 Know who's in.
               </p>
               <p className="mt-6 text-lg leading-6 text-gray-700">
-                It is tough nowadays to plan an event. You never know who is
-                coming and who is not. With RSVPlease you can easily create an
-                event and share it with your friends. They can then register and
-                you can see who is coming and who is not.
+                Nowadays, it is tough to plan an event. You never know who will
+                come or not. With RSVPlease, you can easily create an event and
+                share it with your friends. They can accept or decline and you
+                can track who is coming.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-700 lg:max-w-none">
                 {features.map((feature) => (
