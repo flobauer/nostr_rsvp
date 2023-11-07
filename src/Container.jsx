@@ -68,9 +68,9 @@ export default function Container() {
 
   return (
     <div className="w-full">
-      <nav className="max-w-5xl mx-auto flex mt-4 gap-2 items-center">
+      <nav className="flex items-center max-w-5xl gap-2 mx-auto mt-4">
         <Link
-          className="font-bold font-mono text-lg pl-4 flex items-center text-gray-800"
+          className="flex items-center pl-4 font-mono text-lg font-bold text-gray-800"
           to="/">
           <img src="/pizza2.png" className="w-12 h-12" />
           RSVPlease
@@ -98,8 +98,8 @@ export default function Container() {
       </main>
 
       {location.pathname === "/" && <Features />}
-      <footer className="pb-16 max-w-5xl mx-auto">
-        <p className="italic text-gray-600 px-4 pt-4">
+      <footer className="max-w-5xl pb-16 mx-auto">
+        <p className="px-4 pt-4 italic text-gray-600">
           This application runs on the nostr protocol, which is a decentralized
           and cencorship resistant protocol on the internet. If you want to
           learn more about nostr, check out{" "}
@@ -113,7 +113,7 @@ export default function Container() {
           . Just remember, what you share is public for everyone to see, so
           think before you post.
         </p>
-        <p className="italic text-gray-600 px-4 py-2">
+        <p className="px-4 py-2 italic text-gray-600">
           Made by{" "}
           <a
             target="_blank"
@@ -136,16 +136,16 @@ export default function Container() {
             rel="noreferrer"
             className="underline"
             href="https://github.com/flobauer/nostr_rsvp">
-            See Source from Github
+            Sourcecode on Github
           </a>
         </p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form
-          className="flex flex-col gap-2  font-mono"
+          className="flex flex-col gap-2 font-mono"
           onSubmit={updateProfileHandler}>
           <h1 className="text-lg font-bold">Nostr Settings</h1>
-          <p className="text-gray-800 text-sm font-sans">
+          <p className="font-sans text-sm text-gray-800">
             The Nostr protocol, short for "Notes and Other Stuff Transmitted by
             Relays," is a digital communication system designed to be simple and
             open. This system ensures that no single company or server has
@@ -153,7 +153,7 @@ export default function Container() {
             making sure that your ability to communicate isn't easily shut down
             by any one entity.
           </p>
-          <p className="text-gray-800 text-sm font-sans mb-4">
+          <p className="mb-4 font-sans text-sm text-gray-800">
             That said, it is also transparent, which means that this event and
             everybody joining it is somewhere in the protocol. If you want to
             learn more about Nostr, check out{" "}
@@ -172,13 +172,13 @@ export default function Container() {
             value={user?.publicKey}
             onChange={(e) => setUser({ ...user, publicKey: e.target.value })}
           />
-          <label className="font-bold mt-4">Private Key</label>
+          <label className="mt-4 font-bold">Private Key</label>
           <input
             className="input"
             value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
-          <button className="bg-sky-600 input text-white">
+          <button className="text-white bg-sky-600 input">
             Save Nostr Credentials
           </button>
           <button className="text-sky-600 input" onClick={generateHandler}>
