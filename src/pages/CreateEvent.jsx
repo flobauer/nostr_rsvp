@@ -59,8 +59,8 @@ export default function CreateEvent() {
         Only if They're Bringing Pizza!
       </h1>
       <p className="text-lg px-5 mb-4 text-gray-700 max-w-xl">
-        A simple RSVP Solution for receiving your event confirmations and better
-        plan who is coming.
+        A simple RSVP Solution for receiving your event confirmations and
+        keeping track of who is coming.
       </p>
       <strong className="font-serif text-xl text-gray-700 px-4 pt-4 pb-2 block">
         Create your first Event:
