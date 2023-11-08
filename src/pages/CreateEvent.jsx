@@ -120,7 +120,11 @@ export default function CreateEvent() {
           placeholder="My House"
           required
         />
-        <div className="col-span-2 ">
+        <div />
+        <small className="col-span-2 pb-2 -mt-2 font-sans md:px-4 text-stone-600">
+          Please don't share information that you'd like to keep private.
+        </small>
+        <div className="col-span-2">
           <button className="text-left text-white bg-amber-600 input">
             Create Event
           </button>
