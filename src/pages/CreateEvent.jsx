@@ -53,26 +53,26 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="mt-8 md:mt-16 mb-8 md:mb-16 border-b">
-      <h1 className="text-3xl md:text-5xl font-serif font-bold px-4 mb-4 text-sky-700">
+    <div className="mt-8 mb-8 border-b md:mt-16 md:mb-16">
+      <h1 className="px-4 mb-4 font-serif text-3xl font-bold md:text-5xl text-sky-700">
         Surprise Visitors? <br />
         Only if They're Bringing Pizza!
       </h1>
-      <p className="text-lg px-5 mb-4 text-gray-700 max-w-xl">
+      <p className="max-w-xl px-5 mb-4 text-lg text-gray-700">
         A simple RSVP Solution for receiving your event confirmations and
         keeping track of who is coming.
       </p>
-      <strong className="font-serif text-xl text-gray-700 px-4 pt-4 pb-2 block">
+      <strong className="block px-4 pt-4 pb-2 font-serif text-xl text-gray-700">
         Create your first Event:
       </strong>
       <form
-        className="flex flex-col md:grid grid-cols-3 gap-2 card"
+        className="flex flex-col grid-cols-3 gap-2 md:grid card"
         onSubmit={submitHandler}>
         <label>Your Name:</label>
         <input
           onChange={(e) => setUsername(e.target.value)}
           value={username}
-          className="input mb-2 col-span-2"
+          className="col-span-2 mb-2 input"
           placeholder="John Doe"
           required
         />
@@ -83,7 +83,7 @@ export default function CreateEvent() {
           }
           value={event.name}
           placeholder="My Birthday Party"
-          className="input mb-2 col-span-2"
+          className="col-span-2 mb-2 input"
           required
         />
         {/* <label>Event Description:</label>
@@ -99,7 +99,7 @@ export default function CreateEvent() {
         <input
           type="datetime-local"
           onChange={(e) => handleDateChange(e, "start")}
-          className="input mb-2 col-span-2"
+          className="col-span-2 mb-2 input"
           required
         />
 
@@ -116,12 +116,12 @@ export default function CreateEvent() {
             setEvent((prev) => ({ ...prev, location: e.target.value }))
           }
           value={event.location}
-          className="input mb-2 col-span-2"
+          className="col-span-2 mb-2 input"
           placeholder="My House"
           required
         />
         <div className="col-span-2 ">
-          <button className="text-left bg-amber-600 text-white input">
+          <button className="text-left text-white bg-amber-600 input">
             Create Event
           </button>
         </div>

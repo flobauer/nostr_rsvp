@@ -174,7 +174,7 @@ export default function Container() {
           />
           <label className="mt-4 font-bold">Private Key</label>
           <input
-            className="input"
+            className="password"
             value={user?.privateKey}
             onChange={(e) => setUser({ ...user, privateKey: e.target.value })}
           />
