@@ -170,8 +170,8 @@ export default function Container() {
             Sourcecode on Github
           </a>
         </p>
-        <p>{{ window.navigator.standalone }}</p>
-        <p>{{ window.navigator.userAgent.toLowerCase()}}</p>
+        <p>{_navigator?.standalone}</p>
+        <p>{_navigator?.ua}</p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form
