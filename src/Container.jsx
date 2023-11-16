@@ -47,11 +47,13 @@ export default function Container() {
       } else if (!standalone && !safari) {
         // iOS webview
         window.open(location.href, "_system");
+        alert("For better experience please open the site in the Browser.");
       }
     } else {
       if (userAgent.includes("wv")) {
         // Android webview
         window.open(location.href, "_system");
+        alert("For better experience please open the site in the Browser.");
       } else {
         // Chrome
       }
