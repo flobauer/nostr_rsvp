@@ -55,8 +55,8 @@ export default function Container() {
     } else {
       if (userAgent.includes("wv")) {
         // Android webview
-        window.open(location.href, "_blank");
         alert("For better experience please open the site in the Browser.");
+        window.open(location.href, "_blank");
       } else {
         // Chrome
       }
@@ -93,12 +93,6 @@ export default function Container() {
       privateKey,
     });
   };
-
-  var _navigator = {
-    standalone: window.navigator.standalone,
-    ua: window.navigator.userAgent.toLowerCase(),
-  };
-  console.log(_navigator);
 
   return (
     <div className="w-full">
@@ -173,8 +167,6 @@ export default function Container() {
             Sourcecode on Github
           </a>
         </p>
-        <p>{_navigator?.standalone}</p>
-        <p>{_navigator?.ua}</p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form
