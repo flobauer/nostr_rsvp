@@ -49,14 +49,14 @@ export default function Container() {
         if (
           confirm("For better experience please open the site in the Browser.")
         ) {
-          window.open(location.href, "_blank");
+          window.open(location.href, "_system");
         }
       }
     } else {
       if (userAgent.includes("wv")) {
         // Android webview
         alert("For better experience please open the site in the Browser.");
-        window.open(location.href, "_blank");
+        window.open(location.href, "_system");
       } else {
         // Chrome
       }
