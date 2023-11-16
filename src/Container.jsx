@@ -91,7 +91,9 @@ export default function Container() {
     });
   };
 
-  const json = JSON.stringify(window.navigator, null, 2);
+  var _navigator = {};
+  for (var i in window.navigator) _navigator[i] = navigator[i];
+  const json = JSON.stringify(_navigator, null, 2);
 
   return (
     <div className="w-full">
