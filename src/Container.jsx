@@ -35,6 +35,29 @@ export default function Container() {
     }
   }, [user, username, setUser]);
 
+  useEffect(() => {
+    const standalone = window.navigator.standalone;
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const safari = /safari/.test(userAgent);
+    const ios = /iphone|ipod|ipad/.test(userAgent);
+
+    if (ios) {
+      if (!standalone && safari) {
+        // Safari
+      } else if (!standalone && !safari) {
+        // iOS webview
+        window.open(location.href, "_system");
+      }
+    } else {
+      if (userAgent.includes("wv")) {
+        // Android webview
+        window.open(location.href, "_system");
+      } else {
+        // Chrome
+      }
+    }
+  }, [location]);
+
   const updateProfileHandler = (e) => {
     e.preventDefault();
 
