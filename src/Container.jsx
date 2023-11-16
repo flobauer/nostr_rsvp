@@ -91,6 +91,8 @@ export default function Container() {
     });
   };
 
+  const json = JSON.stringify(window.navigator, null, 2);
+
   return (
     <div className="w-full">
       <nav className="flex items-center max-w-5xl gap-2 mx-auto mt-4">
@@ -164,6 +166,7 @@ export default function Container() {
             Sourcecode on Github
           </a>
         </p>
+        <p>{{ json }}</p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form
