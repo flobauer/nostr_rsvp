@@ -46,8 +46,11 @@ export default function Container() {
         // Safari
       } else if (!standalone && !safari) {
         // iOS webview
-        window.open(location.href, "_system");
-        alert("For better experience please open the site in the Browser.");
+        if (
+          confirm("For better experience please open the site in the Browser.")
+        ) {
+          window.open(location.href, "_system");
+        }
       }
     } else {
       if (userAgent.includes("wv")) {
