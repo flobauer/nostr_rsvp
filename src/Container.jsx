@@ -91,8 +91,10 @@ export default function Container() {
     });
   };
 
-  var _navigator = {};
-  for (var i in window.navigator) _navigator[i] = navigator[i];
+  var _navigator = {
+    standalone: window.navigator.standalone,
+    ua: window.navigator.userAgent.toLowerCase(),
+  };
   const json = JSON.stringify(_navigator, null, 2);
 
   return (
