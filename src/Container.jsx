@@ -95,7 +95,7 @@ export default function Container() {
     standalone: window.navigator.standalone,
     ua: window.navigator.userAgent.toLowerCase(),
   };
-  const json = JSON.stringify(_navigator, null, 2);
+  console.log(_navigator);
 
   return (
     <div className="w-full">
@@ -170,7 +170,8 @@ export default function Container() {
             Sourcecode on Github
           </a>
         </p>
-        <p>{{ json }}</p>
+        <p>{{ window.navigator.standalone }}</p>
+        <p>{{ window.navigator.userAgent.toLowerCase()}}</p>
       </footer>
       <Modal open={showNostrSettings} setOpen={setShowNostrSettings}>
         <form
