@@ -11,9 +11,8 @@ const relayUrls = [
   "wss://nostr.heavyrubberslave.com",
   "wss://nostr01.counterclockwise.io",
   "wss://nostr.gleeze.com",
-  "wss://relay.spacetomatoes.net",
   "wss://community.nostrdvm.com",
-  "wss://onlynostr.club",
+  "wss://nostr.fishingdev.com"
 ];
 
 function App() {
@@ -24,6 +23,7 @@ function App() {
           <Route path="/" element={<Container />}>
             <Route index element={<CreateEvent />} />
             <Route path=":eventId" element={<Event />} />
+            {/* <Route path="/admin" element={<Admin />} /> */}
             <Route path="*" element={<div>404</div>} />
           </Route>
         </Routes>
