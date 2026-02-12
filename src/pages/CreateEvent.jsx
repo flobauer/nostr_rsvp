@@ -22,7 +22,7 @@ export default function CreateEvent() {
     e.preventDefault();
 
     // make sure that user profile is up to date
-    updateUserProfileIfNameChanged({
+    await updateUserProfileIfNameChanged({
       name: username,
       user,
       setUser,
@@ -37,7 +37,7 @@ export default function CreateEvent() {
       privateKey: user.privateKey,
     });
 
-    setEvents((prev) => [...prev, createdEvent]);
+    await setEvents((prev) => [...prev, createdEvent]);
 
     navigate(`/${createdEvent.id}`);
   };

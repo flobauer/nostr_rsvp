@@ -82,7 +82,7 @@ export async function createEvent({ data, publish, publicKey, privateKey }) {
   event.id = getEventHash(event);
   event.sig = getSignature(event, privateKey);
 
-  publish(event);
+  await publish(event);
 
   return event;
 }
@@ -158,7 +158,7 @@ export async function rsvpToEvent({
   event.id = getEventHash(event);
   event.sig = getSignature(event, privateKey);
 
-  publish(event);
+  await publish(event);
 
   return event;
 }
@@ -197,7 +197,7 @@ export async function postMessageToEvent({
   event.id = getEventHash(event);
   event.sig = getSignature(event, privateKey);
 
-  publish(event);
+  await publish(event);
 
   return event;
 }
@@ -226,7 +226,7 @@ export async function reactToMessage({
   event.id = getEventHash(event);
   event.sig = getSignature(event, personPrivateKey);
 
-  publish(event);
+  await publish(event);
 
   return event;
 }

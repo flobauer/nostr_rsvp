@@ -51,7 +51,7 @@ function Event() {
   // the RSVP action
   const rsvpHandler = async (rsvp) => {
     // make sure user has a profile on nostr
-    updateUserProfileIfNameChanged({
+    await updateUserProfileIfNameChanged({
       name: username,
       user,
       setUser,
@@ -72,7 +72,7 @@ function Event() {
   // the comment action
   const messageHandler = async (message) => {
     // make sure the user has a profile on nostr
-    updateUserProfileIfNameChanged({
+    await updateUserProfileIfNameChanged({
       name: username,
       user,
       setUser,
