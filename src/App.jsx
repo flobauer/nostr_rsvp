@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Container from "./Container";
 import CreateEvent from "pages/CreateEvent";
 import Event from "pages/Event";
-import Admin from "pages/Admin";
 
 // this might make sense to make configurable
 const relayUrls = [
